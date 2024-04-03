@@ -1,6 +1,6 @@
-import axios from 'axios';
+import axios from "axios";
 
-const baseUrl = import.meta.env.VITE_BASE_URL_API;
+const baseUrl = "https://brainy-calf-pantyhose.cyclic.app";
 
 export const axiosInstance = axios.create({
   baseURL: baseUrl,

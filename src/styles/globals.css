@@ -46,7 +46,7 @@
 }
 
 .login-page {
-  background-image: url('/login.webp');
+  background-image: url("/login.webp");
   background-repeat: no-repeat;
   background-size: contain;
   width: 90%;
@@ -85,8 +85,8 @@
 }
 
 .spinner2 {
-  width: 40px;
-  height: 40px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   padding: 1.4px;
   background: conic-gradient(#0000 10%, #71717a) content-box;
