@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -6,7 +6,12 @@ import Layout from "./components/Layout";
 import PrivateRoutes from "./components/PrivateRoute";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import useDocumentTitle from "./components/useDocumentTItle";
 function App() {
+  const location =
+    useLocation().pathname.slice(1).substring(0, 1).toUpperCase() +
+    useLocation().pathname.slice(2);
+  useDocumentTitle(`Threads - ${location}`);
   return (
     <Layout>
       <Routes>

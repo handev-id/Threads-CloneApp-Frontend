@@ -27,7 +27,7 @@ const ResetPassword = () => {
   const { status, error, mutate, isPending } = useMutation({
     mutationFn: async (password: FormValues) => {
       const { data } = await axiosInstance.post(
-        "/auth/reset-password/" + params.identifier,
+        "/auth/forgot-password/update/" + params.identifier,
         {
           password: password.password,
         }

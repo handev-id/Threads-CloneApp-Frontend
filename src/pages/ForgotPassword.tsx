@@ -1,11 +1,14 @@
 import Logo from "@/components/Logo";
+import OtpModal from "@/components/OtpModal";
 import { LoadingSmall } from "@/components/ui/Loading";
 import { H4, Muted, P } from "@/components/ui/Typography";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { axiosInstance } from "@/lib/axiosInstance";
 import { useMutation } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
 type FormData = {
@@ -14,8 +17,17 @@ type FormData = {
 
 const ForgotPassword = () => {
   const { handleSubmit, register } = useForm();
+  const [showModal, setShowModal] = useState(false);
+  const dispatch = useDispatch();
 
-  const { status, isPending, mutate, error } = useMutation({
+  // GET USER
+  const {
+    status,
+    isPending,
+    mutate,
+    error,
+    data: userData,
+  } = useMutation({
     mutationFn: async (identifier: string) => {
       const { data } = await axiosInstance.get(
         `/auth/forgot-password/${identifier}`
@@ -28,8 +40,34 @@ const ForgotPassword = () => {
     mutate(data?.identifier);
   };
 
+  // SEND VERIFICATION CODE
+  const {
+    mutate: sendCode,
+    isPending: isPendingCode,
+    data: verifyCodeData,
+  } = useMutation({
+    mutationFn: async () => {
+      const { data } = await axiosInstance.post(
+        "/auth/forgot-password/send-code",
+        {
+          email: userData?.result?.email,
+        }
+      );
+      return data;
+    },
+    onSuccess: () => {
+      setShowModal(true);
+    },
+  });
+
+  useEffect(() => {
+    dispatch({ type: "otp/setOtp", payload: verifyCodeData?.otpCode });
+    dispatch({ type: "otp/setUserId", payload: userData?.result?._id });
+  }, [verifyCodeData]);
+
   return (
     <section className='login-page h-screen flex justify-center items-center'>
+      <OtpModal showModal={showModal} />
       <form
         onSubmit={handleSubmit(onFindUser)}
         className='flex flex-col justify-center text-center text-white w-[340px] gap-2'
@@ -62,13 +100,24 @@ const ForgotPassword = () => {
 
         {status === "success" && (
           <div className='mt-6'>
-            <p className='text-white text-center text-xs'>Akun di temukan</p>
-            <button
-              type='button'
-              className='underline text-sm text-zinc-600 mt-3 hover:text-white hover:scale-95 duration-200 transition-all rounded-xl'
-            >
-              Kirim Link Reset Password
-            </button>
+            {!isPendingCode ? (
+              <>
+                <p className='text-white text-center text-xs'>
+                  Akun di temukan
+                </p>
+                <button
+                  onClick={() => sendCode()}
+                  type='button'
+                  className='underline text-sm text-zinc-600 mt-3 hover:text-white hover:scale-95 duration-200 transition-all rounded-xl'
+                >
+                  Kirim Kode Verifikasi
+                </button>
+              </>
+            ) : (
+              <div className='flex justify-center'>
+                <LoadingSmall />
+              </div>
+            )}
           </div>
         )}
 
