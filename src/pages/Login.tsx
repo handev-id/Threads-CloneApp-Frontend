@@ -24,6 +24,8 @@ const Login = () => {
     },
   });
 
+  console.log(data);
+
   useEffect(() => {
     if (status === "success") {
       const { token, ...rest } = data?.result;
