@@ -1,14 +1,15 @@
-import { useEffect, useState } from "react";
-import { Outlet, Navigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-const PrivateRoutes = () => {
-  const [token, setToken] = useState<string | null>(null);
+const PrivateRoutes = ({ children }: { children: JSX.Element }) => {
+  const navigate = useNavigate();
 
   useEffect(() => {
-    setToken(localStorage.getItem("token"));
-  }, []);
+    const token = localStorage.getItem("token");
+    if (!token) navigate("/login");
+  }, [navigate]);
 
-  return token ? <Outlet /> : <Navigate to='/login' replace />;
+  return children;
 };
 
 export default PrivateRoutes;

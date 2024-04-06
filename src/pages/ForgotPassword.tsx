@@ -1,7 +1,7 @@
 import Logo from "@/components/Logo";
 import OtpModal from "@/components/OtpModal";
 import { LoadingSmall } from "@/components/ui/Loading";
-import { H4, Muted, P } from "@/components/ui/Typography";
+import { H4, Muted } from "@/components/ui/Typography";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { axiosInstance } from "@/lib/axiosInstance";

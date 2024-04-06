@@ -3,7 +3,6 @@ import { LoadingSmall } from "@/components/ui/Loading";
 import { H4, Muted } from "@/components/ui/Typography";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import useDocumentTitle from "@/components/useDocumentTItle";
 import { axiosInstance } from "@/lib/axiosInstance";
 import { useMutation } from "@tanstack/react-query";
 import { useEffect } from "react";
@@ -32,9 +31,10 @@ const Login = () => {
       localStorage.setItem("token", token);
       localStorage.setItem("threads_userdata", JSON.stringify({ ...rest }));
     }
-    const existingToken = localStorage.getItem("token");
 
-    if (existingToken) {
+    const isToken = localStorage.getItem("token");
+    const isUserData = localStorage.getItem("threads_userdata");
+    if (isToken && isUserData) {
       navigate("/");
     }
   }, [status]);

@@ -1,5 +1,3 @@
-import { H1 } from "@/components/ui/Typography";
-
 const Home = () => {
   return (
     <div className='text-white'>

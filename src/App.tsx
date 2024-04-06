@@ -19,7 +19,7 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/forgot-password' element={<ForgotPassword />} />
         <Route path='/reset-password/:identifier' element={<ResetPassword />} />
-        <Route element={<PrivateRoutes />}>
+        <Route element={<PrivateRoutes children={<Home />} />}>
           <Route path='/' element={<Home />} />
         </Route>
       </Routes>

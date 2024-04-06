@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { REGEXP_ONLY_DIGITS_AND_CHARS } from "input-otp";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import {
   InputOTP,
@@ -55,7 +55,7 @@ export function InputOTPPattern() {
   };
 
   return (
-    <form className='flex flex-col justify-center items-center gap-3'>
+    <div className='flex flex-col justify-center items-center gap-3'>
       {isErr && (
         <p className='text-xs text-red-500'>
           Kode OTP yang anda masukkan salah
@@ -84,6 +84,6 @@ export function InputOTPPattern() {
       >
         Submit
       </Button>
-    </form>
+    </div>
   );
 }
