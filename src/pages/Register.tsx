@@ -17,13 +17,13 @@ const Register = () => {
     mutate(userData);
   };
 
-  const { mutate, isPending, status, data } = useMutation({
+  const { mutate, isPending, status, error } = useMutation({
     mutationFn: async (userData) => {
       const { data } = await axiosInstance.post("/auth/register", userData);
       return data;
     },
   });
-  console.log(data);
+  console.log(error);
 
   useEffect(() => {
     if (status === "success") {

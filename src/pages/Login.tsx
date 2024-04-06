@@ -24,7 +24,7 @@ const Login = () => {
     },
   });
 
-  console.log(data);
+  console.log(error);
 
   useEffect(() => {
     if (status === "success") {
