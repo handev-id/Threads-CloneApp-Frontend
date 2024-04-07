@@ -16,7 +16,7 @@ const OtpModal = ({ showModal }: { showModal: boolean }) => {
     <>
       {showModal && (
         <>
-          <div className='w-[95%] lg:w-[600px] text-white bg-zinc-900 rounded-md z-50 shadow-3 fixed top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2'>
+          <div className='w-[95%] lg:w-[600px] text-white bg-zinc-800 rounded-md z-50 shadow-3 fixed top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2'>
             <h2 className='text-lg lg:text-2xl font-bold uppercase py-5 border-b border-zinc-500 text-center'>
               Kode OTP
             </h2>
@@ -29,7 +29,7 @@ const OtpModal = ({ showModal }: { showModal: boolean }) => {
               </div>
             </div>
           </div>
-          <div className='bg-zinc-950/60 fixed top-0 left-0 w-full h-full z-40'></div>
+          <div className='bg-zinc-900/60 fixed top-0 left-0 w-full h-full z-40'></div>
         </>
       )}
     </>

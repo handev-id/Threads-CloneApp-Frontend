@@ -53,21 +53,21 @@ const Register = () => {
           type='text'
           required
           placeholder='Username'
-          className='p-[22px] border-gray-900 focus:border-zinc-700 bg-zinc-900/80 rounded-xl'
+          className='p-[22px] border-gray-900 focus:border-zinc-700 bg-zinc-800 rounded-xl'
         />
         <Input
           {...register("email")}
           type='text'
           required
           placeholder='Email'
-          className='p-[22px] border-gray-900 focus:border-zinc-700 bg-zinc-900/80 rounded-xl'
+          className='p-[22px] border-gray-900 focus:border-zinc-700 bg-zinc-800 rounded-xl'
         />
         <Input
           {...register("password")}
           type='password'
           required
           placeholder='Password'
-          className='p-[22px] border-gray-900 focus:border-zinc-700 bg-zinc-900/80 rounded-xl'
+          className='p-[22px] border-gray-900 focus:border-zinc-700 bg-zinc-800 rounded-xl'
         />
         <Button
           disabled={isPending}

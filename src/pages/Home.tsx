@@ -1,7 +1,9 @@
+import Tabs from "@/components/Tabs";
+
 const Home = () => {
   return (
-    <div className='text-white'>
-      <h1>Oke 3</h1>
+    <div className='text-white pt-20'>
+      <Tabs />
     </div>
   );
 };

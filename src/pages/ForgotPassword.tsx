@@ -88,7 +88,7 @@ const ForgotPassword = () => {
           type='text'
           required
           placeholder='Masukkan Username Atau Email'
-          className='p-[22px] border-gray-900 focus:border-zinc-700 bg-zinc-900/80 rounded-xl'
+          className='p-[22px] border-gray-900 focus:border-zinc-700 bg-zinc-800 rounded-xl'
         />
         <Button
           disabled={isPending}

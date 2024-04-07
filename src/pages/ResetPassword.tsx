@@ -68,14 +68,14 @@ const ResetPassword = () => {
           type='password'
           required
           placeholder='Password'
-          className='p-[22px] border-gray-900 focus:border-zinc-700 bg-zinc-900/80 rounded-xl'
+          className='p-[22px] border-gray-900 focus:border-zinc-700 bg-zinc-800 rounded-xl'
         />
         <Input
           {...register("confirmPassword")}
           type='password'
           required
           placeholder='Konfirmasi Password'
-          className='p-[22px] border-gray-900 focus:border-zinc-700 bg-zinc-900/80 rounded-xl'
+          className='p-[22px] border-gray-900 focus:border-zinc-700 bg-zinc-800 rounded-xl'
         />
         <Button
           disabled={isPending}

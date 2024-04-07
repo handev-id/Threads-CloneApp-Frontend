@@ -1,6 +1,6 @@
-import { useQuery } from '@tanstack/react-query';
-import { axiosInstance } from './axiosInstance';
-import { useEffect, useState } from 'react';
+import { useQuery } from "@tanstack/react-query";
+import { axiosInstance } from "./axiosInstance";
+import { useEffect, useState } from "react";
 
 export const useGetPosts = () => {
   const {
@@ -8,11 +8,11 @@ export const useGetPosts = () => {
     isLoading,
     status,
   } = useQuery({
-    queryKey: ['user'],
+    queryKey: ["user"],
     queryFn: async () => {
-      const { data } = await axiosInstance.get('/post/list', {
+      const { data } = await axiosInstance.get("/post/list", {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
       return data;
@@ -30,7 +30,7 @@ export const useGetLocalUser = () => {
   const [localUserData, setLocalUserData] = useState({});
 
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem('threads_userdata') as any);
+    const data = JSON.parse(localStorage.getItem("threads_userdata") as any);
 
     setLocalUserData(data);
   }, []);
@@ -38,4 +38,10 @@ export const useGetLocalUser = () => {
   return {
     localUserData,
   };
+};
+
+export const Logout = () => {
+  localStorage.removeItem("token");
+  localStorage.removeItem("threads_userdata");
+  window.location.reload();
 };

@@ -26,6 +26,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "src/lib/.ts"],
+  "include": ["src", "src/lib/.ts", "public/icons"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

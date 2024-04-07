@@ -65,14 +65,14 @@ const Login = () => {
           type='text'
           required
           placeholder='Username Atau Email'
-          className='p-[22px] border-gray-900 focus:border-zinc-700 bg-zinc-900/80 rounded-xl'
+          className='p-[22px] border-gray-900 focus:border-zinc-700 bg-zinc-800 rounded-xl'
         />
         <Input
           {...register("password")}
           type='password'
           required
           placeholder='Password'
-          className='p-[22px] border-gray-900 focus:border-zinc-700 bg-zinc-900/80 rounded-xl'
+          className='p-[22px] border-gray-900 focus:border-zinc-700 bg-zinc-800 rounded-xl'
         />
         <Button
           disabled={isPending}

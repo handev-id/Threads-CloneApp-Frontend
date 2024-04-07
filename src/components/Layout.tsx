@@ -17,7 +17,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <main className='w-full flex justify-center'>
       <div className='w-full sm:w-[400px]'>
-        <div className='backdrop-blur-md p-3 bg-zinc-950/50 fixed top-0 left-1/2 -translate-x-1/2 w-full sm:w-[400px]'>
+        <div className='backdrop-blur-md p-3 bg-zinc-900 z-40 fixed top-0 left-1/2 -translate-x-1/2 w-full sm:w-[400px]'>
           <div className='flex justify-between items-center'>
             <div></div>
             <div>
