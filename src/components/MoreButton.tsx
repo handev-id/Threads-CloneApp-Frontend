@@ -33,7 +33,7 @@ const MoreMenu = () => {
         {Menu.map((item, idx) => (
           <Link to={item.link}>
             <div
-              className='text-white p-3 text-sm bg-zinc-800 hover:bg-zinc-900/50 border-b border-zinc-700'
+              className='text-white p-3 text-sm bg-zinc-900 hover:bg-zinc-950/80 border-b border-zinc-700'
               key={idx}
             >
               {item.name}
@@ -42,7 +42,7 @@ const MoreMenu = () => {
         ))}
         <div
           onClick={() => Logout()}
-          className='text-white p-3 bg-zinc-800 hover:bg-zinc-900/50'
+          className='text-white p-3 bg-zinc-900 hover:bg-zinc-950/80'
         >
           Keluar
         </div>

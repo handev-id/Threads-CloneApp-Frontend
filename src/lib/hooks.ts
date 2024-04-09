@@ -10,11 +10,7 @@ export const useGetPosts = () => {
   } = useQuery({
     queryKey: ["user"],
     queryFn: async () => {
-      const { data } = await axiosInstance.get("/post/list", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      const { data } = await axiosInstance.get("/post/list");
       return data;
     },
   });

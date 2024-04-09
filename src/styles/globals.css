@@ -8,6 +8,15 @@
     "Open Sans", "Helvetica Neue", sans-serif;
 }
 
+body {
+  background-color: #101010;
+}
+
+.post-icon {
+  font-size: 20px;
+  color: white;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

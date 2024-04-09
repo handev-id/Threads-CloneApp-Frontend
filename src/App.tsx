@@ -7,11 +7,13 @@ import PrivateRoutes from "./components/PrivateRoute";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import useDocumentTitle from "./components/useDocumentTItle";
+import Following from "./pages/Following";
 function App() {
   const location =
     useLocation().pathname.slice(1).substring(0, 1).toUpperCase() +
-    useLocation().pathname.slice(2);
-  useDocumentTitle(`Threads - ${location}`);
+    useLocation().pathname.slice(2) +
+    " -";
+  useDocumentTitle(`${location} Threads`);
   return (
     <Layout>
       <Routes>
@@ -21,6 +23,7 @@ function App() {
         <Route path='/reset-password/:identifier' element={<ResetPassword />} />
         <Route element={<PrivateRoutes children={<Home />} />}>
           <Route path='/' element={<Home />} />
+          <Route path='/following' element={<Following />} />
         </Route>
       </Routes>
     </Layout>
