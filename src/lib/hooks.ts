@@ -1,38 +1,36 @@
 import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "./axiosInstance";
 import { useEffect, useState } from "react";
+import { UserType } from "@/types/userType";
 
-export const useGetPosts = () => {
-  const {
-    data: posts,
-    isLoading,
-    status,
-  } = useQuery({
-    queryKey: ["user"],
+export const useGetAllData = ({ endpoint }: { endpoint: string }) => {
+  const { data, isLoading, status, error } = useQuery({
+    queryKey: ["ALL_DATA"],
     queryFn: async () => {
-      const { data } = await axiosInstance.get("/post/list");
+      const { data } = await axiosInstance.get(endpoint);
       return data;
     },
   });
 
   return {
-    posts,
+    data,
     isLoading,
     status,
+    error,
   };
 };
 
 export const useGetLocalUser = () => {
-  const [localUserData, setLocalUserData] = useState({});
+  const [userData, setUserData] = useState<UserType>({});
 
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem("threads_userdata") as any);
 
-    setLocalUserData(data);
+    setUserData(data?.user);
   }, []);
 
   return {
-    localUserData,
+    userData,
   };
 };
 
@@ -40,4 +38,31 @@ export const Logout = () => {
   localStorage.removeItem("token");
   localStorage.removeItem("threads_userdata");
   window.location.reload();
+};
+
+export const usePostingTimeHistory = ({ inputTime }: { inputTime: string }) => {
+  function formatTimeAgo(delta: number) {
+    const intervals = [
+      { label: "bulan", divisor: 2629800000 }, // approximately 1 month in milliseconds
+      { label: "minggu", divisor: 604800000 },
+      { label: "hari", divisor: 86400000 },
+      { label: "jam", divisor: 3600000 },
+      { label: "menit", divisor: 60000 },
+      { label: "detik", divisor: 1000 },
+    ];
+
+    for (const { label, divisor } of intervals) {
+      const value = Math.floor(delta / divisor);
+      if (value >= 1) {
+        return `${value} ${label}${value === 1 ? "" : ""} lalu`;
+      }
+    }
+
+    return "Just now"; // If the time difference is less than a second
+  }
+
+  const timeAgo = new Date(inputTime);
+  const deltaTime = Date.now() - timeAgo.getTime();
+  const postingTime = formatTimeAgo(deltaTime);
+  return postingTime;
 };

@@ -1,10 +1,10 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-export function AvatarImg() {
+export function AvatarImg({ image }: { image: string }) {
   return (
     <Avatar>
-      <AvatarImage src='https://github.com/shadcn.png' alt='@shadcn' />
-      <AvatarFallback>CN</AvatarFallback>
+      <AvatarImage src={image} className='object-cover zoom-in-150' alt='' />
+      {/* <AvatarFallback>CN</AvatarFallback> */}
     </Avatar>
   );
 }

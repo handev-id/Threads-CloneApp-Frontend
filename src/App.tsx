@@ -13,7 +13,7 @@ function App() {
     useLocation().pathname.slice(1).substring(0, 1).toUpperCase() +
     useLocation().pathname.slice(2) +
     " -";
-  useDocumentTitle(`${location} Threads`);
+  useDocumentTitle(`${location && "Home - "} Threads`);
   return (
     <Layout>
       <Routes>
