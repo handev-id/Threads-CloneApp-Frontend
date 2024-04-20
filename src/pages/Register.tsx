@@ -17,13 +17,12 @@ const Register = () => {
     mutate(userData);
   };
 
-  const { mutate, isPending, status, error } = useMutation({
+  const { mutate, isPending, status, error, data } = useMutation({
     mutationFn: async (userData) => {
       const { data } = await axiosInstance.post("/auth/register", userData);
       return data;
     },
   });
-  console.log(error);
 
   useEffect(() => {
     if (status === "success") {
@@ -49,10 +48,10 @@ const Register = () => {
           </p>
         )}
         <Input
-          {...register("username")}
+          {...register("fullname")}
           type='text'
           required
-          placeholder='Username'
+          placeholder='Nama lengkap'
           className='p-[22px] border-gray-900 focus:border-zinc-700 bg-zinc-800 rounded-xl'
         />
         <Input

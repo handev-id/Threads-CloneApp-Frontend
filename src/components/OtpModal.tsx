@@ -1,6 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { REGEXP_ONLY_DIGITS_AND_CHARS } from "input-otp";
-import { useSelector } from "react-redux";
 
 import {
   InputOTP,
@@ -8,8 +7,8 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import { Button } from "./ui/button";
-import { RootState } from "@/lib/redux/store";
 import { useNavigate } from "react-router-dom";
+import { useOtpCode } from "@/lib/zustand";
 
 const OtpModal = ({ showModal }: { showModal: boolean }) => {
   return (
@@ -42,9 +41,7 @@ export function InputOTPPattern() {
   const [isErr, setIsErr] = useState<boolean>(false);
   const router = useNavigate();
 
-  const { otp: otpFromApi, userId } = useSelector(
-    (state: RootState) => state.OtpReducer
-  );
+  const { code: otpFromApi, userId } = useOtpCode();
 
   const verifOtp = () => {
     if (otpFromApi !== otp) {
@@ -53,6 +50,28 @@ export function InputOTPPattern() {
     }
     router(`/reset-password/${userId}`);
   };
+
+  useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      // Membuat pesan konfirmasi
+      const confirmationMessage =
+        "Apakah Anda yakin ingin keluar dari halaman ini?";
+
+      // Menetapkan pesan konfirmasi ke event
+      e.returnValue = confirmationMessage;
+
+      // Mengembalikan pesan konfirmasi
+      return confirmationMessage;
+    };
+
+    // Menambahkan event listener untuk 'beforeunload'
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    // Membersihkan event listener ketika komponen dibongkar (unmounted)
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
 
   return (
     <div className='flex flex-col justify-center items-center gap-3'>

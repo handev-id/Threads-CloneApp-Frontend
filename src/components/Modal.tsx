@@ -33,22 +33,16 @@ export function ModalReply({
   image,
   createdAt,
 }: ModalProps) {
-  const [isOpen, setIsOpen] = useState(false);
   return (
-    <Dialog open={isOpen}>
-      <DialogTrigger asChild onClick={() => setIsOpen(true)}>
-        {children}
-      </DialogTrigger>
+    <Dialog>
+      <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className='max-lg:h-screen sm:max-w-md bg-zinc-900 border border-zinc-700 rounded-lg '>
         <DialogHeader>
           <DialogDescription>
             <div className='flex justify-between w-full lg:mb-3'>
-              <button
-                onClick={() => setIsOpen(false)}
-                className='hover:text-white lg:hidden'
-              >
-                Cancel
-              </button>
+              <DialogClose asChild>
+                <button className='hover:text-white lg:hidden'>Cancel</button>
+              </DialogClose>
               <h4 className='font-bold text-white text-center mx-auto'>
                 Reply
               </h4>
@@ -57,7 +51,7 @@ export function ModalReply({
           </DialogDescription>
         </DialogHeader>
 
-        <div className='max-lg:mb-[500px] flex flex-col gap-3'>
+        <div className='max-lg:mb-[300px] flex flex-col gap-3'>
           <div className='flex text-white gap-3'>
             <div className='flex items-center flex-col gap-2'>
               <AvatarImg image={avatar} />
@@ -83,12 +77,15 @@ export function ModalReply({
           <ReplyInput whoPost={username} />
         </div>
 
-        <DialogFooter className='sm:justify-end mt-5'>
+        <DialogFooter className='flex gap-4 flex-row justify-between mt-5'>
           <DialogClose asChild>
-            <Button type='button' variant='secondary'>
-              Close
+            <Button type='button' variant='default'>
+              Batal
             </Button>
           </DialogClose>
+          <Button type='button' variant='secondary'>
+            Balas
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

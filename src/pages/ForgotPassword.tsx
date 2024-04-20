@@ -5,10 +5,10 @@ import { H4, Muted } from "@/components/ui/Typography";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { axiosInstance } from "@/lib/axiosInstance";
+import { useOtpCode } from "@/lib/zustand";
 import { useMutation } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
 type FormData = {
@@ -18,7 +18,7 @@ type FormData = {
 const ForgotPassword = () => {
   const { handleSubmit, register } = useForm();
   const [showModal, setShowModal] = useState(false);
-  const dispatch = useDispatch();
+  const { setCode, setUserId } = useOtpCode();
 
   // GET USER
   const {
@@ -61,8 +61,8 @@ const ForgotPassword = () => {
   });
 
   useEffect(() => {
-    dispatch({ type: "otp/setOtp", payload: verifyCodeData?.otpCode });
-    dispatch({ type: "otp/setUserId", payload: userData?.result?._id });
+    setCode(verifyCodeData?.otpCode);
+    setUserId(userData?.result?._id);
   }, [verifyCodeData]);
 
   return (

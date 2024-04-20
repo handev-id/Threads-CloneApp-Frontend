@@ -1,8 +1,12 @@
+import Layout from "@/components/Layout";
+
 const Following = () => {
   return (
-    <div>
-      <div>FOLLOWING</div>
-    </div>
+    <Layout>
+      <div>
+        <div>FOLLOWING</div>
+      </div>
+    </Layout>
   );
 };
 

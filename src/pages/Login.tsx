@@ -7,11 +7,10 @@ import { axiosInstance } from "@/lib/axiosInstance";
 import { useMutation } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const { handleSubmit, register } = useForm();
-  const navigate = useNavigate();
 
   const onLogin = (userData: any) => {
     mutate(userData);
@@ -24,8 +23,6 @@ const Login = () => {
     },
   });
 
-  console.log(error);
-
   useEffect(() => {
     if (status === "success") {
       const { token, ...rest } = data?.result;
@@ -37,7 +34,7 @@ const Login = () => {
     const isToken = localStorage.getItem("token");
     const isUserData = localStorage.getItem("threads_userdata");
     if (isToken && isUserData) {
-      navigate("/");
+      window.location.href = "/";
     }
   }, [status]);
 
