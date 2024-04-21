@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "./axiosInstance";
 import { useEffect, useState } from "react";
 import { UserType } from "@/types/userType";
@@ -15,6 +15,36 @@ export const useGetAllData = ({ endpoint }: { endpoint: string }) => {
   return {
     data,
     isLoading,
+    status,
+    error,
+  };
+};
+
+export const useCreateData = ({
+  endpoint,
+  data,
+}: {
+  endpoint: string;
+  data: any;
+}) => {
+  const {
+    mutate,
+    data: response,
+    isPending,
+    status,
+    error,
+  } = useMutation({
+    mutationKey: ["CREATE_DATA"],
+    mutationFn: async () => {
+      const res = await axiosInstance.post(endpoint, { ...data });
+      return res.data;
+    },
+  });
+
+  return {
+    mutate,
+    response,
+    isPending,
     status,
     error,
   };

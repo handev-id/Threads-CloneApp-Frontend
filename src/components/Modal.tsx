@@ -1,5 +1,5 @@
 import { CopyIcon } from "@radix-ui/react-icons";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -13,45 +13,59 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { PostType } from "@/types/data.type";
-import { useGetLocalUser, usePostingTimeHistory } from "@/lib/hooks";
+import {
+  useCreateData,
+  useGetLocalUser,
+  usePostingTimeHistory,
+} from "@/lib/hooks";
 import { AvatarImg } from "./Avatar";
+import { useActionPost, useIsLoading } from "@/lib/zustand";
+import { LoadingSmall } from "./ui/Loading";
+import { useNavigate } from "react-router-dom";
 
 interface ModalProps {
   children: React.ReactNode;
+  postId: string;
   username: string;
   caption: string;
   createdAt: string;
   avatar: string;
+  recipientId: string;
   image?: string;
 }
 
 export function ModalReply({
+  postId,
   children,
   username,
   avatar,
   caption,
   image,
   createdAt,
+  recipientId,
 }: ModalProps) {
+  const { setIsReply } = useActionPost();
+  const { isLoading } = useIsLoading();
+
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className='max-lg:h-screen sm:max-w-md bg-zinc-900 border border-zinc-700 rounded-lg '>
         <DialogHeader>
           <DialogDescription>
-            <div className='flex justify-between w-full lg:mb-3'>
+            <div className='flex justify-between w-full lg:mb-3 max-lg:mt-5'>
               <DialogClose asChild>
-                <button className='hover:text-white lg:hidden'>Cancel</button>
+                <button className='hover:text-white lg:hidden'>Batal</button>
               </DialogClose>
               <h4 className='font-bold text-white text-center mx-auto'>
-                Reply
+                Balasan
               </h4>
               <button></button>
             </div>
           </DialogDescription>
         </DialogHeader>
 
-        <div className='max-lg:mb-[300px] flex flex-col gap-3'>
+        <div className='max-lg:mb-[250px] flex flex-col gap-3'>
           <div className='flex text-white gap-3'>
             <div className='flex items-center flex-col gap-2'>
               <AvatarImg image={avatar} />
@@ -74,7 +88,11 @@ export function ModalReply({
               )}
             </div>
           </div>
-          <ReplyInput whoPost={username} />
+          <ReplyInput
+            whoPost={username}
+            postId={postId}
+            recippientId={recipientId}
+          />
         </div>
 
         <DialogFooter className='flex gap-4 flex-row justify-between mt-5'>
@@ -83,8 +101,14 @@ export function ModalReply({
               Batal
             </Button>
           </DialogClose>
-          <Button type='button' variant='secondary'>
-            Balas
+          <Button
+            disabled={isLoading}
+            onClick={() => setIsReply(true)}
+            type='button'
+            variant='secondary'
+            className='disabled:cursor-not-allowed disabled:opacity-60'
+          >
+            {isLoading ? <LoadingSmall /> : "Balas"}
           </Button>
         </DialogFooter>
       </DialogContent>
@@ -92,8 +116,49 @@ export function ModalReply({
   );
 }
 
-const ReplyInput = ({ whoPost }: { whoPost: string }) => {
+const ReplyInput = ({
+  whoPost,
+  postId,
+  recippientId,
+}: {
+  whoPost: string;
+  postId: string;
+  recippientId: string;
+}) => {
   const { userData } = useGetLocalUser();
+  const [reply, setReply] = useState<string>("");
+  const { isReply, setIsReply } = useActionPost();
+  const { setIsLoading } = useIsLoading();
+  const navigate = useNavigate();
+
+  const {
+    mutate: createReply,
+    response,
+    error,
+  } = useCreateData({
+    endpoint: `/post/reply/${postId}?recipientId=${recippientId}`,
+    data: {
+      reply,
+    },
+  });
+
+  useEffect(() => {
+    if (isReply) {
+      createReply();
+      setIsLoading(true);
+    }
+
+    if (response) {
+      setIsLoading(false);
+      setIsReply(false);
+      navigate(`/post/${postId}`);
+    }
+  }, [isReply, response]);
+
+  console.log("RESPONSE: ", response);
+  console.log("ERROR: ", error);
+  console.log(isReply);
+
   return (
     <div className='flex gap-3 text-white w-full'>
       <div className='flex items-center flex-col gap-2'>
@@ -102,6 +167,8 @@ const ReplyInput = ({ whoPost }: { whoPost: string }) => {
       <div className='w-full flex flex-col'>
         <h3 className='font-semibold tracking-tight'>{userData.username} </h3>
         <textarea
+          value={reply}
+          onChange={(e) => setReply(e.target.value)}
           placeholder={`Balas ${whoPost}...`}
           className='bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-1 outline-none mt-3 h-auto'
           rows={4}

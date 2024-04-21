@@ -64,7 +64,7 @@ const PostCard: React.FC<PostType> = ({
         </h3>
         <p className='text-[14px] my-2'>{caption}</p>
         {image && (
-          <div className='w-full overflow-hidden rounded-lg border border-white/20'>
+          <div className='w-full mb-3 overflow-hidden rounded-lg border border-white/20'>
             <img src={image} alt={"@threads_clone - image"} />
           </div>
         )}
@@ -82,6 +82,8 @@ const PostCard: React.FC<PostType> = ({
             avatar={avatar}
             caption={caption}
             createdAt={createdAt}
+            postId={postId}
+            recipientId={recipientId._id}
           >
             <span className='hover:scale-90 cursor-pointer duration-200 p-[6px] rounded-full hover:bg-zinc-900'>
               <RiChat3Line />
