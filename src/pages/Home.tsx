@@ -12,6 +12,8 @@ const Home = () => {
     endpoint: "/post/list",
   });
 
+  console.log(data, error);
+
   return (
     <Layout>
       <div className='text-white pt-20'>
