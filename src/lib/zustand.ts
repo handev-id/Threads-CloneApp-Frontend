@@ -14,9 +14,11 @@ type modalPost = {
 
 type action = {
   isPost: boolean;
+  isRepost: boolean;
   isReply: boolean;
   setIsPost: (isPost: boolean) => void;
   setIsReply: (isReply: boolean) => void;
+  setIsRepost: (isRepost: boolean) => void;
 };
 
 type LoadingType = {
@@ -53,6 +55,8 @@ export const useModalPost = create<modalPost>((set) => ({
 export const useActionPost = create<action>((set) => ({
   isPost: false,
   isReply: false,
+  isRepost: false,
+  setIsRepost: (isRepost) => set({ isRepost }),
   setIsPost: (isPost) => set({ isPost }),
   setIsReply: (isReply) => set({ isReply }),
 }));

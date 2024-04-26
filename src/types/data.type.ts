@@ -18,4 +18,8 @@ export type PostType = {
   totalReply?: number;
   totalLikes?: number;
   index?: number;
+  reposted?: {
+    username: string;
+    avatar: string;
+  };
 };

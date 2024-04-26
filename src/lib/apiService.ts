@@ -25,3 +25,14 @@ export const uploadImage = async (formData: FormData) => {
     console.log(error);
   }
 };
+
+export const createRepost = async (postId: string, recipientId: string) => {
+  try {
+    const { data } = await axiosInstance.post(
+      `/post/repost/${postId}?recipientId=${recipientId}`
+    );
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};

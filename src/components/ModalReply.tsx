@@ -11,8 +11,6 @@ import {
   DialogHeader,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { PostType } from "@/types/data.type";
 import {
   useCreateData,
   useGetLocalUser,
@@ -50,14 +48,14 @@ export function ModalReply({
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className='max-lg:h-screen sm:max-w-md bg-zinc-900 border border-zinc-700 rounded-lg '>
+      <DialogContent className="max-lg:h-screen h-full overflow-y-auto sm:max-w-md bg-zinc-900 border border-zinc-700 rounded-lg ">
         <DialogHeader>
           <DialogDescription>
-            <div className='flex justify-between w-full lg:mb-3 max-lg:mt-5'>
+            <div className="flex justify-between w-full lg:mb-3 max-lg:mt-5">
               <DialogClose asChild>
-                <button className='hover:text-white lg:hidden'>Batal</button>
+                <button className="hover:text-white lg:hidden">Batal</button>
               </DialogClose>
-              <h4 className='font-bold text-white text-center mx-auto'>
+              <h4 className="font-bold text-white text-center mx-auto">
                 Balasan
               </h4>
               <button></button>
@@ -65,24 +63,24 @@ export function ModalReply({
           </DialogDescription>
         </DialogHeader>
 
-        <div className='max-lg:mb-[250px] flex flex-col gap-3'>
-          <div className='flex text-white gap-3'>
-            <div className='flex items-center flex-col gap-2'>
+        <div className="max-lg:mb-[250px] flex flex-col gap-3">
+          <div className="flex text-white gap-3">
+            <div className="flex items-center flex-col gap-2">
               <AvatarImg image={avatar} />
-              <div className='w-[2px] bg-white/20 h-[50px]'></div>
+              <div className="w-[2px] bg-white/20 h-[50px]"></div>
             </div>
 
             <div>
-              <h3 className='font-semibold tracking-tight'>
+              <h3 className="font-semibold tracking-tight">
                 {username}{" "}
-                <span className='text-white/40 font-light'>
+                <span className="text-white/40 font-light">
                   {" "}
                   {usePostingTimeHistory({ inputTime: createdAt })}
                 </span>
               </h3>
-              <p className='text-[14px] my-2'>{caption}</p>
+              <p className="text-[14px] my-2">{caption}</p>
               {image && (
-                <div className='w-full overflow-hidden rounded-lg border border-white/20'>
+                <div className="w-full overflow-hidden rounded-lg border border-white/20">
                   <img src={image} alt={"@threads_clone - image"} />
                 </div>
               )}
@@ -95,18 +93,18 @@ export function ModalReply({
           />
         </div>
 
-        <DialogFooter className='flex gap-4 flex-row justify-between mt-5'>
+        <DialogFooter className="flex gap-4 flex-row justify-between mt-5">
           <DialogClose asChild>
-            <Button type='button' variant='default'>
+            <Button type="button" variant="default">
               Batal
             </Button>
           </DialogClose>
           <Button
             disabled={isLoading}
             onClick={() => setIsReply(true)}
-            type='button'
-            variant='secondary'
-            className='disabled:cursor-not-allowed disabled:opacity-60'
+            type="button"
+            variant="secondary"
+            className="disabled:cursor-not-allowed disabled:opacity-60"
           >
             {isLoading ? <LoadingSmall /> : "Balas"}
           </Button>
@@ -160,17 +158,17 @@ const ReplyInput = ({
   console.log(isReply);
 
   return (
-    <div className='flex gap-3 text-white w-full'>
-      <div className='flex items-center flex-col gap-2'>
+    <div className="flex gap-3 text-white w-full">
+      <div className="flex items-center flex-col gap-2">
         <AvatarImg image={userData.avatar} />
       </div>
-      <div className='w-full flex flex-col'>
-        <h3 className='font-semibold tracking-tight'>{userData.username} </h3>
+      <div className="w-full flex flex-col">
+        <h3 className="font-semibold tracking-tight">{userData.username} </h3>
         <textarea
           value={reply}
           onChange={(e) => setReply(e.target.value)}
           placeholder={`Balas ${whoPost}...`}
-          className='bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-1 outline-none mt-3 h-auto'
+          className="bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-1 outline-none mt-3 h-auto"
           rows={4}
         ></textarea>
       </div>

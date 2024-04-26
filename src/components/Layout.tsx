@@ -33,37 +33,35 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     return <>{children}</>;
 
   return (
-    <main className='w-full flex justify-center'>
-      <div className='w-full sm:w-[400px]'>
-        <div className='backdrop-blur-md p-3 bg-[#101010]/80 z-40 fixed top-0 left-1/2 -translate-x-1/2 w-full sm:w-[400px]'>
-          <div className='flex justify-between items-center'>
+    <main className="w-full flex justify-center">
+      <div className="w-full sm:w-[400px]">
+        <div className="backdrop-blur-md p-3 bg-[#101010]/80 z-40 fixed top-0 left-1/2 -translate-x-1/2 w-full sm:w-[400px]">
+          <div className="flex justify-between items-center">
             <div></div>
             <div>
-              <Logo color='white' size='35px' />
+              <Logo color="white" size="35px" />
             </div>
             <div>
               <MoreButton />
             </div>
           </div>
         </div>
-        <div className='backdrop-blur-md p-3 bg-[#101010]/80 z-40 fixed bottom-0 left-1/2 -translate-x-1/2 w-full sm:w-[400px]'>
-          <div className='grid grid-cols-5 text-white gap-3'>
+        <div className="backdrop-blur-md p-3 bg-[#101010]/80 z-40 fixed bottom-0 left-1/2 -translate-x-1/2 w-full sm:w-[400px]">
+          <div className="grid grid-cols-5 text-white gap-3">
             {btmMenu.map((menu, index) => (
-              <>
-                <Link
-                  key={index}
-                  onClick={() => (index === 2 ? setIsOpen(true) : null)}
-                  to={menu.link === "/profile" ? userData.username : menu.link}
-                >
-                  <div className='text-[30px] p-3 hover:bg-zinc-800 flex items-center justify-center rounded-lg'>
-                    {location === menu.link ? (
-                      <span>{menu.activeIcon}</span>
-                    ) : (
-                      <span className='opacity-50'>{menu.icon}</span>
-                    )}
-                  </div>
-                </Link>
-              </>
+              <Link
+                key={index}
+                onClick={() => (index === 2 ? setIsOpen(true) : null)}
+                to={menu.link === "/profile" ? userData.username : menu.link}
+              >
+                <div className="text-[30px] p-3 hover:bg-zinc-800 flex items-center justify-center rounded-lg">
+                  {location === menu.link ? (
+                    <span>{menu.activeIcon}</span>
+                  ) : (
+                    <span className="opacity-50">{menu.icon}</span>
+                  )}
+                </div>
+              </Link>
             ))}
           </div>
         </div>

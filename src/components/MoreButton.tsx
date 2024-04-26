@@ -12,8 +12,8 @@ const MoreButton = () => {
           showMenu && "opacity-100"
         } cursor-pointer`}
       >
-        <div className='bg-white w-[22px] h-[2px]'></div>
-        <div className='bg-white w-[12px] h-[2px]'></div>
+        <div className="bg-white w-[22px] h-[2px]"></div>
+        <div className="bg-white w-[12px] h-[2px]"></div>
       </button>
       {showMenu && (
         <div onClick={() => setShowMenu(false)}>
@@ -28,21 +28,18 @@ export default MoreButton;
 
 const MoreMenu = () => {
   return (
-    <div className='bg-transparent fixed top-0 z-40 right-0 w-full h-screen'>
-      <div className='bg-zinc-800 w-[200px] rounded-xl mr-3 mt-16 font-semibold ml-auto overflow-hidden'>
+    <div className="bg-transparent fixed top-0 z-40 right-0 w-full h-screen">
+      <div className="bg-zinc-800 w-[200px] rounded-xl mr-3 mt-16 font-semibold ml-auto overflow-hidden">
         {Menu.map((item, idx) => (
-          <Link to={item.link}>
-            <div
-              className='text-white p-3 bg-zinc-900 hover:bg-zinc-950/80 border-b border-zinc-700'
-              key={idx}
-            >
+          <Link key={idx} to={item.link}>
+            <div className="text-white p-3 bg-zinc-900 hover:bg-zinc-950/80 border-b border-zinc-700">
               {item.name}
             </div>
           </Link>
         ))}
         <div
           onClick={() => Logout()}
-          className='text-white p-3 bg-zinc-900 hover:bg-zinc-950/80'
+          className="text-white p-3 bg-zinc-900 hover:bg-zinc-950/80"
         >
           Keluar
         </div>

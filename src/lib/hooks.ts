@@ -20,6 +20,41 @@ export const useGetAllData = ({ endpoint }: { endpoint: string }) => {
   };
 };
 
+export const useSingleData = ({ endpoint }: { endpoint: string }) => {
+  const { data, isLoading, status, error } = useQuery({
+    queryKey: ["SINGLE_DATA"],
+    queryFn: async () => {
+      const { data } = await axiosInstance.get(endpoint);
+      return data;
+    },
+  });
+
+  return {
+    data,
+    isLoading,
+    status,
+    error,
+  };
+};
+
+export const useMutateSingleData = ({ endpoint }: { endpoint: string }) => {
+  const { mutate, data, isPending, status, error } = useMutation({
+    mutationKey: ["SINGLE_DATA"],
+    mutationFn: async () => {
+      const { data } = await axiosInstance.get(endpoint);
+      return data;
+    },
+  });
+
+  return {
+    data,
+    isPending,
+    status,
+    error,
+    mutate,
+  };
+};
+
 export const useCreateData = ({
   endpoint,
   data,
