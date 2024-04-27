@@ -11,10 +11,10 @@ import { ModalReply } from "../ModalReply";
 import { Muted } from "../ui/Typography";
 import { toast } from "../ui/use-toast";
 import { ModalUserData } from "./userDataCard";
-import { Button } from "../ui/button";
 import { useNavigate } from "react-router-dom";
-import { useIsLoading } from "@/lib/zustand";
+import { useIsLoading, useSameUser } from "@/lib/zustand";
 import { Loading } from "../ui/Loading";
+import { MoreButtonMobile, MoreButtonPostLG } from "./MoreButtonPost";
 
 const PostCard: React.FC<PostType> = ({
   avatar,
@@ -32,6 +32,7 @@ const PostCard: React.FC<PostType> = ({
   const [totalLike, setTotalLike] = useState<number>(likes.length);
   const { userData } = useGetLocalUser();
   const { isLoading, setIsLoading } = useIsLoading();
+  const { setIsSameUser } = useSameUser();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -66,6 +67,14 @@ const PostCard: React.FC<PostType> = ({
       setIsLoading(false);
     }
   };
+
+  //CHECK IF SAME USER IN POST AND LOCAL USER
+  useEffect(() => {
+    if (recipientId._id === userData._id) {
+      setIsSameUser(true);
+    }
+    console.log(recipientId._id, userData._id);
+  }, [recipientId._id, userData._id]);
 
   return (
     <div className="py-4 pl-3 pr-3 border-b border-white/20 flex gap-2 relative">
@@ -152,10 +161,23 @@ const PostCard: React.FC<PostType> = ({
           </div>
         )}
       </div>
-      <div className="absolute top-3 right-3">
-        <div className="text-sm p-3 hover:bg-zinc-900 rounded-full cursor-pointer">
-          <SlOptions />
-        </div>
+      <div className="max-lg:hidden">
+        <MoreButtonPostLG id={postId} isReposted={reposted ? true : false}>
+          <div className="absolute top-3 right-3">
+            <div className="text-sm p-3 hover:bg-zinc-900 rounded-full cursor-pointer">
+              <SlOptions />
+            </div>
+          </div>
+        </MoreButtonPostLG>
+      </div>
+      <div className="lg:hidden">
+        <MoreButtonMobile id={postId} isReposted={reposted ? true : false}>
+          <div className="absolute top-3 right-3">
+            <div className="text-sm p-3 hover:bg-zinc-900 rounded-full cursor-pointer">
+              <SlOptions />
+            </div>
+          </div>
+        </MoreButtonMobile>
       </div>
     </div>
   );

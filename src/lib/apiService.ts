@@ -1,5 +1,6 @@
 import axios from "axios";
 import { axiosInstance } from "./axiosInstance";
+import { useIsLoading } from "./zustand";
 const baseUrl = import.meta.env.VITE_BACKEND_URL;
 
 export const likePost = async (postId: string, recipientId: string) => {
@@ -31,6 +32,20 @@ export const createRepost = async (postId: string, recipientId: string) => {
     const { data } = await axiosInstance.post(
       `/post/repost/${postId}?recipientId=${recipientId}`
     );
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deletePost = async (id: string, isReposted: boolean) => {
+  try {
+    const { data } = await axiosInstance.delete(
+      `/post/delete/${id}?isReposted=${isReposted}`
+    );
+    if (data?.success) {
+      window.location.reload();
+    }
     return data;
   } catch (error) {
     console.log(error);

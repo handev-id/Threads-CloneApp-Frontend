@@ -6,11 +6,11 @@ import { PostsSkeleton } from "@/components/PostSkeleton";
 import Layout from "@/components/Layout";
 
 const Home = () => {
-  const { data } = useGetAllData({
+  const { data, error } = useGetAllData({
     endpoint: "/post/list",
   });
 
-  console.log(data);
+  console.log(error);
 
   return (
     <Layout>
