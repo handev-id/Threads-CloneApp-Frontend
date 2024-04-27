@@ -8,6 +8,7 @@ import ResetPassword from "./pages/ResetPassword";
 import useDocumentTitle from "./components/useDocumentTItle";
 import Following from "./pages/Following";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Post from "./pages/Post";
 function App() {
   const location =
     useLocation().pathname.slice(1).substring(0, 1).toUpperCase() +
@@ -16,16 +17,20 @@ function App() {
   useDocumentTitle(`${location && "Home - "} Threads`);
   return (
     <Routes>
-      <Route path='/register' element={<Register />} />
-      <Route path='/login' element={<Login />} />
-      <Route path='/forgot-password' element={<ForgotPassword />} />
-      <Route path='/reset-password/:identifier' element={<ResetPassword />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/reset-password/:identifier" element={<ResetPassword />} />
 
-      <Route path='/' element={<ProtectedRoute children={<Home />} />}></Route>
+      <Route path="/" element={<ProtectedRoute children={<Home />} />} />
       <Route
-        path='/following'
+        path="/following"
         element={<ProtectedRoute children={<Following />} />}
-      ></Route>
+      />
+      <Route
+        path="/post/:postId"
+        element={<ProtectedRoute children={<Post />} />}
+      />
     </Routes>
   );
 }

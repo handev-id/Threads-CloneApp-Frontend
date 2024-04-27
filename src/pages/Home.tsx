@@ -10,6 +10,8 @@ const Home = () => {
     endpoint: "/post/list",
   });
 
+  console.log(data);
+
   return (
     <Layout>
       <div className="text-white py-20">

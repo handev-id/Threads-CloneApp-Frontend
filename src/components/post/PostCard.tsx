@@ -12,6 +12,9 @@ import { Muted } from "../ui/Typography";
 import { toast } from "../ui/use-toast";
 import { ModalUserData } from "./userDataCard";
 import { Button } from "../ui/button";
+import { useNavigate } from "react-router-dom";
+import { useIsLoading } from "@/lib/zustand";
+import { Loading } from "../ui/Loading";
 
 const PostCard: React.FC<PostType> = ({
   avatar,
@@ -28,6 +31,8 @@ const PostCard: React.FC<PostType> = ({
   const [like, setLike] = useState<boolean>(false);
   const [totalLike, setTotalLike] = useState<number>(likes.length);
   const { userData } = useGetLocalUser();
+  const { isLoading, setIsLoading } = useIsLoading();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (likes.includes(userData._id)) {
@@ -42,18 +47,29 @@ const PostCard: React.FC<PostType> = ({
   };
 
   const handleRepost = async () => {
+    setIsLoading(true);
     const repost = await createRepost(postId, recipientId._id);
-    toast({
-      title: "repost berhasil",
-      description: "repost ke timeline",
-    });
+
     if (repost?.success) {
-      window.location.reload();
+      toast({
+        title: "repost berhasil",
+        description: "repost ke timeline",
+      });
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+    } else {
+      toast({
+        title: "Kamu sudah merepost ini",
+        variant: "destructive",
+      });
+      setIsLoading(false);
     }
   };
 
   return (
     <div className="py-4 pl-3 pr-3 border-b border-white/20 flex gap-2 relative">
+      {isLoading && <Loading />}
       <div className="flex items-center flex-col gap-2">
         <ModalUserData userId={recipientId._id}>
           <AvatarImg image={avatar} />
@@ -77,9 +93,17 @@ const PostCard: React.FC<PostType> = ({
             {usePostingTimeHistory({ inputTime: createdAt })}
           </span>
         </h3>
-        <p className="text-[14px] my-2">{caption}</p>
+        <p
+          onClick={() => navigate(`/post/${postId}`)}
+          className="text-[14px] my-2"
+        >
+          {caption}
+        </p>
         {image && (
-          <div className="w-full mb-3 overflow-hidden rounded-lg border border-white/20">
+          <div
+            onClick={() => navigate(`/post/${postId}`)}
+            className="w-full mb-3 overflow-hidden rounded-lg border border-white/20"
+          >
             <img src={image} alt={"@threads_clone - image"} />
           </div>
         )}

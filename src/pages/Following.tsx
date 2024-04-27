@@ -6,7 +6,10 @@ import { useGetAllData } from "@/lib/hooks";
 import { PostType } from "@/types/data.type";
 
 const Following = () => {
-  const { data } = useGetAllData({ endpoint: "/post-following/list" });
+  const { data, error } = useGetAllData({ endpoint: "/post-following/list" });
+  console.log(data);
+  console.log(error);
+
   return (
     <Layout>
       <div className="text-white pt-20">

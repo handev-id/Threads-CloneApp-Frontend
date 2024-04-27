@@ -63,11 +63,11 @@ export function ModalReply({
           </DialogDescription>
         </DialogHeader>
 
-        <div className="max-lg:mb-[250px] flex flex-col gap-3">
+        <div className="flex flex-col gap-3">
           <div className="flex text-white gap-3">
             <div className="flex items-center flex-col gap-2">
               <AvatarImg image={avatar} />
-              <div className="w-[2px] bg-white/20 h-[50px]"></div>
+              <div className="w-[2px] bg-white/20 h-full"></div>
             </div>
 
             <div>
@@ -134,7 +134,7 @@ const ReplyInput = ({
     response,
     error,
   } = useCreateData({
-    endpoint: `/post/reply/${postId}?recipientId=${recippientId}`,
+    endpoint: `/post/create-reply/${postId}?recipientId=${recippientId}`,
     data: {
       reply,
     },
@@ -144,18 +144,19 @@ const ReplyInput = ({
     if (isReply) {
       createReply();
       setIsLoading(true);
+      return;
     }
+  }, [isReply]);
 
+  useEffect(() => {
     if (response) {
-      setIsLoading(false);
       setIsReply(false);
+      setIsLoading(false);
       navigate(`/post/${postId}`);
     }
-  }, [isReply, response]);
+  }, [response]);
 
-  console.log("RESPONSE: ", response);
   console.log("ERROR: ", error);
-  console.log(isReply);
 
   return (
     <div className="flex gap-3 text-white w-full">
