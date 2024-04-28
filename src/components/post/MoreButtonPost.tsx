@@ -7,7 +7,6 @@ import {
 import { DrawerWithChildren } from "../Drawer";
 import { useIsLoading } from "@/lib/zustand";
 import { deletePost } from "@/lib/apiService";
-import { string } from "yup";
 import { Loading } from "../ui/Loading";
 
 export function MoreButtonPostLG({

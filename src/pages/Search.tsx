@@ -31,7 +31,7 @@ const Search = () => {
             placeholder="Cari teman.."
             className="text-white p-[22px] pl-12 rounded-2xl border border-zinc-700 focus:border-zinc-600"
           />
-          <span className="absolute left-5 top-1/2 -translate-y-1/2 text-white/40">
+          <span className="absolute left-7 top-1/2 -translate-y-1/2 text-white/40">
             <RiSearchLine />
           </span>
         </div>

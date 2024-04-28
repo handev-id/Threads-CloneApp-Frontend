@@ -10,6 +10,7 @@ import Following from "./pages/Following";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Post from "./pages/Post";
 import Search from "./pages/Search";
+import Activity from "./pages/Activity";
 function App() {
   const location =
     useLocation().pathname.slice(1).substring(0, 1).toUpperCase() +
@@ -35,6 +36,10 @@ function App() {
       <Route
         path="/search"
         element={<ProtectedRoute children={<Search />} />}
+      />
+      <Route
+        path="/activity"
+        element={<ProtectedRoute children={<Activity />} />}
       />
     </Routes>
   );

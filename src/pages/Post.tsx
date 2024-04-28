@@ -29,31 +29,43 @@ const Post = () => {
   } = useMutateSingleData({
     endpoint: `/post/reply/${postId}`,
   });
+  const {
+    mutate: getPostById,
+    data,
+    error: errPost,
+  } = useMutateSingleData({
+    endpoint: `/post/${postId}`,
+  });
 
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem("post"));
-    setPost({ ...data });
-
     if (postId) {
+      getPostById();
       mutate();
     }
   }, [postId]);
-  console.log(replies);
+
+  useEffect(() => {
+    if (data) {
+      setPost({ ...data?.result });
+    }
+  }, [data]);
+  console.log(post);
+
   return (
     <Layout>
       <div className="py-16 text-white">
         {post ? (
           <PostCard
             _id={post._id}
-            avatar={post?.userId.avatar}
+            avatar={post?.userId?.avatar}
             caption={post?.caption}
-            name={post?.userId.username}
+            name={post?.userId?.username}
             image={post?.image}
-            createdAt={post.createdAt}
-            totalReply={post.totalReply}
-            userId={post.userId}
-            likes={post.likes}
-            reposted={post.reposted}
+            createdAt={post?.createdAt}
+            totalReply={post?.replies?.length}
+            userId={post?.userId}
+            likes={post?.likes}
+            reposted={post?.reposted}
           />
         ) : (
           <SingleSkeleton />

@@ -35,20 +35,20 @@ const PostCard: React.FC<PostType> = ({
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (likes.includes(userData._id)) {
+    if (likes?.includes(userData?._id)) {
       setLike(true);
     }
-  }, [userData._id]);
+  }, [userData?._id]);
 
   const handleLike = async () => {
     setLike(!like);
     like ? setTotalLike(totalLike - 1) : setTotalLike(totalLike + 1);
-    await likePost(postId, recipientId._id);
+    await likePost(postId, recipientId?._id);
   };
 
   const handleRepost = async () => {
     setIsLoading(true);
-    const repost = await createRepost(postId, recipientId._id);
+    const repost = await createRepost(postId, recipientId?._id);
 
     if (repost?.success) {
       toast({
@@ -68,21 +68,6 @@ const PostCard: React.FC<PostType> = ({
   };
 
   const PushToDetailPost = () => {
-    localStorage.setItem(
-      "post",
-      JSON.stringify({
-        avatar,
-        caption,
-        name,
-        image,
-        createdAt,
-        totalReply,
-        _id: postId,
-        userId: recipientId,
-        likes,
-        reposted,
-      })
-    );
     navigate(`/post/${postId}`);
   };
 
@@ -101,7 +86,7 @@ const PostCard: React.FC<PostType> = ({
     <div className="py-4 pl-3 pr-3 border-b border-white/20 flex gap-2 relative">
       {isLoading && <Loading />}
       <div className="flex items-center flex-col gap-2">
-        <ModalUserData userId={recipientId._id}>
+        <ModalUserData userId={recipientId?._id}>
           <AvatarImg image={avatar} />
         </ModalUserData>
         <div className="w-[2px] bg-white/20 h-full"></div>
@@ -149,7 +134,7 @@ const PostCard: React.FC<PostType> = ({
             caption={caption}
             createdAt={createdAt}
             postId={postId}
-            recipientId={recipientId._id}
+            recipientId={recipientId?._id}
           >
             <span className="hover:scale-90 cursor-pointer duration-200 p-[6px] rounded-full hover:bg-zinc-900">
               <RiChat3Line />
@@ -187,7 +172,7 @@ const PostCard: React.FC<PostType> = ({
       </div>
       <div className="max-lg:hidden">
         <MoreButtonPostLG
-          isSameUser={recipientId._id === userData._id}
+          isSameUser={recipientId?._id === userData?._id}
           id={postId}
           isReposted={reposted ? true : false}
         >
@@ -200,7 +185,7 @@ const PostCard: React.FC<PostType> = ({
       </div>
       <div className="lg:hidden">
         <MoreButtonMobile
-          isSameUser={recipientId._id === userData._id}
+          isSameUser={recipientId?._id === userData?._id}
           id={postId}
           isReposted={reposted ? true : false}
         >

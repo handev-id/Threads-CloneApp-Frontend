@@ -41,7 +41,7 @@ const Lists: React.FC<ListsProps> = ({
 }) => {
   const { userData } = useGetLocalUser();
   const [btnFollow, setBtnFollow] = useState(isFollow ? "Following" : "Follow");
-  const [followersLength, setFollowersLength] = useState(followers.length);
+  const [followersLength, setFollowersLength] = useState(followers?.length);
   const {
     response,
     isPending,
@@ -67,7 +67,6 @@ const Lists: React.FC<ListsProps> = ({
       }
     }
   }, [response]);
-  console.log(username, isFollow);
 
   return (
     <div className="py-4 pl-3 pr-3 border-b border-white/20 flex gap-2 relative">

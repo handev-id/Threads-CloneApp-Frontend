@@ -39,42 +39,42 @@ const Login = () => {
   }, [status]);
 
   return (
-    <section className='login-page h-screen flex justify-center items-center'>
+    <section className="login-page h-screen flex justify-center items-center">
       <form
         onSubmit={handleSubmit(onLogin)}
-        className='flex flex-col justify-center text-center text-white w-[340px] gap-2'
+        className="flex flex-col justify-center text-center text-white w-[340px] gap-2"
       >
-        <div className='md:hidden mx-auto'>
-          <Logo color='white' size='60px' />
+        <div className="md:hidden mx-auto">
+          <Logo color="white" size="60px" />
         </div>
-        <div className='mb-3'>
+        <div className="mb-3">
           <H4>Login Threads App</H4>
         </div>
         {error !== null && (
-          <p className='text-red-500 text-center text-xs'>
+          <p className="text-red-500 text-center text-xs">
             {error?.message?.includes("401")
-              ? "Password yang anda masukkan salah"
+              ? "Username atau Password salah"
               : "Akun Tidak Terdaftar"}
           </p>
         )}
         <Input
           {...register("identifier")}
-          type='text'
+          type="text"
           required
-          placeholder='Username Atau Email'
-          className='p-[22px] border-gray-900 focus:border-zinc-700 bg-zinc-800 rounded-xl'
+          placeholder="Username Atau Email"
+          className="p-[22px] border-gray-900 focus:border-zinc-700 bg-zinc-800 rounded-xl"
         />
         <Input
           {...register("password")}
-          type='password'
+          type="password"
           required
-          placeholder='Password'
-          className='p-[22px] border-gray-900 focus:border-zinc-700 bg-zinc-800 rounded-xl'
+          placeholder="Password"
+          className="p-[22px] border-gray-900 focus:border-zinc-700 bg-zinc-800 rounded-xl"
         />
         <Button
           disabled={isPending}
-          type='submit'
-          className='p-6 bg-white w-full text-zinc-600 mt-3 hover:bg-white hover:scale-95 duration-200 transition-all rounded-xl'
+          type="submit"
+          className="p-6 bg-white w-full text-zinc-600 mt-3 hover:bg-white hover:scale-95 duration-200 transition-all rounded-xl"
         >
           {isPending ? <LoadingSmall /> : "Log In"}
         </Button>
@@ -82,10 +82,10 @@ const Login = () => {
         <Link to={"/forgot-password"} style={{ marginTop: 10 }}>
           <Muted>Lupa Password?</Muted>
         </Link>
-        <div className='mt-4 flex items-center gap-5'>
-          <div className='w-full h-[1px] bg-zinc-700'></div>
+        <div className="mt-4 flex items-center gap-5">
+          <div className="w-full h-[1px] bg-zinc-700"></div>
           <Muted>or</Muted>
-          <div className='w-full h-[1px] bg-zinc-700'></div>
+          <div className="w-full h-[1px] bg-zinc-700"></div>
         </div>
 
         {/* <button className='p-3 z-30 rounded-xl font-semibold hover:scale-95 transition-all duration-200 flex items-center justify-center gap-3 border border-zinc-700 mt-4'>
@@ -93,19 +93,19 @@ const Login = () => {
                     <p>Masuk Dengan Instagram</p>
                 </button> */}
 
-        <span className='mt-3 opacity-60 text-sm hover:opacity-100'>
+        <span className="mt-3 opacity-60 text-sm hover:opacity-100">
           <Link to={"/register"} style={{ marginTop: 10 }}>
             <p>Daftar Akun Baru</p>
           </Link>
         </span>
 
-        <div className='fixed z-0 bottom-3 left-0 right-0'>
+        <div className="fixed z-0 bottom-3 left-0 right-0">
           <Muted>
             @2024 Threads Clone App By{" "}
             <Link
               style={{ textDecoration: "underline" }}
-              to='https://handev.my.id'
-              target='_blank'
+              to="https://handev.my.id"
+              target="_blank"
             >
               Handev
             </Link>
