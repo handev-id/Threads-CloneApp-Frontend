@@ -14,7 +14,7 @@ const Home = () => {
 
   return (
     <Layout>
-      <div className="text-white py-20">
+      <div className="text-white py-[70px]">
         <Tabs />
         {data ? (
           <div className="grid grid-cols-1">

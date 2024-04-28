@@ -16,7 +16,6 @@ import {
   DialogTrigger,
 } from "../ui/dialog";
 import React, { useEffect } from "react";
-import { AvatarImg } from "../Avatar";
 import { Muted } from "../ui/Typography";
 import { Skeleton } from "../ui/skeleton";
 import { LoadingSmall } from "../ui/Loading";
@@ -97,23 +96,25 @@ export function ModalUserData({ children, userId }: ModalProps) {
             </div>
           )}
         </DialogHeader>
-        <DialogFooter className="sm:justify-start">
-          <Button
-            onClick={() => follow()}
-            disabled={isPending}
-            type="button"
-            className="w-full"
-            variant="secondary"
-          >
-            {isPending ? (
-              <LoadingSmall />
-            ) : isFollowing() ? (
-              "Unfollow"
-            ) : (
-              "Follow"
-            )}
-          </Button>
-        </DialogFooter>
+        {userData?._id !== userId && (
+          <DialogFooter className="sm:justify-start">
+            <Button
+              onClick={() => follow()}
+              disabled={isPending}
+              type="button"
+              className="w-full"
+              variant="secondary"
+            >
+              {isPending ? (
+                <LoadingSmall />
+              ) : isFollowing() ? (
+                "Unfollow"
+              ) : (
+                "Follow"
+              )}
+            </Button>
+          </DialogFooter>
+        )}
       </DialogContent>
     </Dialog>
   );

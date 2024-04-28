@@ -51,3 +51,14 @@ export const deletePost = async (id: string, isReposted: boolean) => {
     console.log(error);
   }
 };
+export const deleteReply = async (id: string) => {
+  try {
+    const { data } = await axiosInstance.delete(`/post/reply/delete/${id}`);
+    if (data?.success) {
+      window.location.reload();
+    }
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};

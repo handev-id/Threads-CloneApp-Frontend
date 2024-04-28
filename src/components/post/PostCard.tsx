@@ -29,7 +29,7 @@ const PostCard: React.FC<PostType> = ({
   reposted,
 }) => {
   const [like, setLike] = useState<boolean>(false);
-  const [totalLike, setTotalLike] = useState<number>(likes.length);
+  const [totalLike, setTotalLike] = useState<number>(likes?.length);
   const { userData } = useGetLocalUser();
   const { isLoading, setIsLoading } = useIsLoading();
   const { setIsSameUser } = useSameUser();
@@ -57,7 +57,7 @@ const PostCard: React.FC<PostType> = ({
         description: "repost ke timeline",
       });
       setTimeout(() => {
-        window.location.reload();
+        window.location.href = "/";
       }, 2000);
     } else {
       toast({
@@ -73,8 +73,37 @@ const PostCard: React.FC<PostType> = ({
     if (recipientId._id === userData._id) {
       setIsSameUser(true);
     }
-    console.log(recipientId._id, userData._id);
   }, [recipientId._id, userData._id]);
+
+  const PushToDetailPost = () => {
+    localStorage.setItem(
+      "post",
+      JSON.stringify({
+        avatar,
+        caption,
+        name,
+        image,
+        createdAt,
+        totalReply,
+        _id: postId,
+        userId: recipientId,
+        likes,
+        reposted,
+      })
+    );
+    navigate(`/post/${postId}`);
+  };
+
+  const copyToClipboard = async (textToCopy: string) => {
+    try {
+      await navigator.clipboard.writeText(textToCopy);
+      toast({
+        title: "link Berhasil Di Copy",
+      });
+    } catch (error) {
+      console.error("Failed to copy:", error);
+    }
+  };
 
   return (
     <div className="py-4 pl-3 pr-3 border-b border-white/20 flex gap-2 relative">
@@ -95,22 +124,19 @@ const PostCard: React.FC<PostType> = ({
         )}
       </div>
       <div>
-        <h3 className="font-semibold tracking-tight">
+        <h3 onClick={PushToDetailPost} className="font-semibold tracking-tight">
           {name}{" "}
           <span className="text-white/40 ml-1 font-light">
             {" "}
             {usePostingTimeHistory({ inputTime: createdAt })}
           </span>
         </h3>
-        <p
-          onClick={() => navigate(`/post/${postId}`)}
-          className="text-[14px] my-2"
-        >
+        <p onClick={PushToDetailPost} className="text-[14px] my-2">
           {caption}
         </p>
         {image && (
           <div
-            onClick={() => navigate(`/post/${postId}`)}
+            onClick={PushToDetailPost}
             className="w-full mb-3 overflow-hidden rounded-lg border border-white/20"
           >
             <img src={image} alt={"@threads_clone - image"} />
@@ -143,12 +169,18 @@ const PostCard: React.FC<PostType> = ({
           >
             <BiRepost />
           </span>
-          <span className="text-[22px] cursor-pointer hover:scale-90 duration-200 p-[6px] rounded-full hover:bg-zinc-900">
+          <span
+            onClick={() =>
+              copyToClipboard(`${window.location.origin}/post/${postId}`)
+            }
+            className="text-[22px] cursor-pointer hover:scale-90 duration-200 p-[6px] rounded-full hover:bg-zinc-900"
+          >
             <LuSend />
           </span>
         </div>
-        <div className="text-white/40 font-light">
-          {totalReply} balasan •{" "}
+        <div onClick={PushToDetailPost} className="text-white/40 font-light">
+          <span className="underline cursor-pointer">{totalReply} balasan</span>
+          {" • "}
           <span className="hover:underline cursor-pointer">
             {totalLike} suka
           </span>

@@ -146,17 +146,16 @@ const ReplyInput = ({
       setIsLoading(true);
       return;
     }
+    console.log("ERROR: ", error);
   }, [isReply]);
 
   useEffect(() => {
     if (response) {
       setIsReply(false);
       setIsLoading(false);
-      navigate(`/post/${postId}`);
+      window.location.href = `/post/${postId}`;
     }
   }, [response]);
-
-  console.log("ERROR: ", error);
 
   return (
     <div className="flex gap-3 text-white w-full">

@@ -32,7 +32,7 @@ export function MoreButtonPostLG({
       <DropdownMenuTrigger asChild>
         <Button className="p-0">{children}</Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56 rounded-xl flex flex-col gap-2 ml-40 border text-white border-zinc-800 bg-[#101010] bg-opacity-70 backdrop-blur-sm">
+      <DropdownMenuContent className="w-56 rounded-xl flex flex-col gap-2 mr-40 border text-white border-zinc-800 bg-[#101010] bg-opacity-70 backdrop-blur-sm">
         <button className="hover:bg-zinc-800 text-start p-2 rounded-lg px-3 text-white text-base">
           Simpan
         </button>

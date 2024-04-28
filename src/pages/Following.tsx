@@ -29,6 +29,7 @@ const Following = () => {
                 totalReply={post.replies.length}
                 userId={post.userId}
                 likes={post.likes}
+                reposted={post.reposted}
               />
             ))}
           </div>
