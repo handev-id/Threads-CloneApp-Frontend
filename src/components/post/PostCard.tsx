@@ -12,7 +12,7 @@ import { Muted } from "../ui/Typography";
 import { toast } from "../ui/use-toast";
 import { ModalUserData } from "./userDataCard";
 import { useNavigate } from "react-router-dom";
-import { useIsLoading, useSameUser } from "@/lib/zustand";
+import { useIsLoading } from "@/lib/zustand";
 import { Loading } from "../ui/Loading";
 import { MoreButtonMobile, MoreButtonPostLG } from "./MoreButtonPost";
 
@@ -32,7 +32,6 @@ const PostCard: React.FC<PostType> = ({
   const [totalLike, setTotalLike] = useState<number>(likes?.length);
   const { userData } = useGetLocalUser();
   const { isLoading, setIsLoading } = useIsLoading();
-  const { setIsSameUser } = useSameUser();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -67,13 +66,6 @@ const PostCard: React.FC<PostType> = ({
       setIsLoading(false);
     }
   };
-
-  //CHECK IF SAME USER IN POST AND LOCAL USER
-  useEffect(() => {
-    if (recipientId._id === userData._id) {
-      setIsSameUser(true);
-    }
-  }, [recipientId._id, userData._id]);
 
   const PushToDetailPost = () => {
     localStorage.setItem(
@@ -194,7 +186,11 @@ const PostCard: React.FC<PostType> = ({
         )}
       </div>
       <div className="max-lg:hidden">
-        <MoreButtonPostLG id={postId} isReposted={reposted ? true : false}>
+        <MoreButtonPostLG
+          isSameUser={recipientId._id === userData._id}
+          id={postId}
+          isReposted={reposted ? true : false}
+        >
           <div className="absolute top-3 right-3">
             <div className="text-sm p-3 hover:bg-zinc-900 rounded-full cursor-pointer">
               <SlOptions />
@@ -203,7 +199,11 @@ const PostCard: React.FC<PostType> = ({
         </MoreButtonPostLG>
       </div>
       <div className="lg:hidden">
-        <MoreButtonMobile id={postId} isReposted={reposted ? true : false}>
+        <MoreButtonMobile
+          isSameUser={recipientId._id === userData._id}
+          id={postId}
+          isReposted={reposted ? true : false}
+        >
           <div className="absolute top-3 right-3">
             <div className="text-sm p-3 hover:bg-zinc-900 rounded-full cursor-pointer">
               <SlOptions />

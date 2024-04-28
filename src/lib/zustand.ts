@@ -33,11 +33,6 @@ type ImagePostType = {
   setSelectedFile: (selectedFile: File | null) => void;
 };
 
-type SameUserType = {
-  isSameUser: boolean;
-  setIsSameUser: (sameUser: boolean) => void;
-};
-
 export const useOtpCode = create<OtpCode>((set) => ({
   code: null,
   userId: null,
@@ -69,9 +64,4 @@ export const useActionPost = create<action>((set) => ({
 export const useIsLoading = create<LoadingType>((set) => ({
   isLoading: false,
   setIsLoading: (isLoading) => set({ isLoading }),
-}));
-
-export const useSameUser = create<SameUserType>((set) => ({
-  isSameUser: false,
-  setIsSameUser: (isSameUser) => set({ isSameUser }),
 }));

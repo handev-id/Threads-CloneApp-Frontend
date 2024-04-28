@@ -9,6 +9,7 @@ import useDocumentTitle from "./components/useDocumentTItle";
 import Following from "./pages/Following";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Post from "./pages/Post";
+import Search from "./pages/Search";
 function App() {
   const location =
     useLocation().pathname.slice(1).substring(0, 1).toUpperCase() +
@@ -30,6 +31,10 @@ function App() {
       <Route
         path="/post/:postId"
         element={<ProtectedRoute children={<Post />} />}
+      />
+      <Route
+        path="/search"
+        element={<ProtectedRoute children={<Search />} />}
       />
     </Routes>
   );

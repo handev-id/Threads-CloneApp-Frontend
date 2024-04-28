@@ -4,14 +4,14 @@ const Tabs = () => {
   const location = useLocation().pathname;
 
   return (
-    <div className='grid text-center grid-cols-2'>
+    <div className="grid text-center grid-cols-2">
       <Link
         to={"/"}
         className={`font-semibold border-b pb-3 border-white hover:opacity-100 ${
           location !== "/" && "opacity-30"
         }`}
       >
-        For you
+        Untukmu
       </Link>
       <Link
         to={"/following"}
@@ -19,7 +19,7 @@ const Tabs = () => {
           location !== "/following" && "opacity-30"
         }`}
       >
-        Following
+        Mengikuti
       </Link>
     </div>
   );

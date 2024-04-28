@@ -2,12 +2,10 @@ import {
   useCreateData,
   useGetLocalUser,
   useMutateSingleData,
-  useSingleData,
 } from "@/lib/hooks";
 import { Button } from "../ui/button";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -108,9 +106,9 @@ export function ModalUserData({ children, userId }: ModalProps) {
               {isPending ? (
                 <LoadingSmall />
               ) : isFollowing() ? (
-                "Unfollow"
+                "unfollow"
               ) : (
-                "Follow"
+                "follow"
               )}
             </Button>
           </DialogFooter>

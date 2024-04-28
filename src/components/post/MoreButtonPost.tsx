@@ -5,7 +5,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { DrawerWithChildren } from "../Drawer";
-import { useIsLoading, useSameUser } from "@/lib/zustand";
+import { useIsLoading } from "@/lib/zustand";
 import { deletePost } from "@/lib/apiService";
 import { string } from "yup";
 import { Loading } from "../ui/Loading";
@@ -14,12 +14,13 @@ export function MoreButtonPostLG({
   children,
   id,
   isReposted,
+  isSameUser,
 }: {
   children: React.ReactNode;
   id: string;
   isReposted: boolean;
+  isSameUser: boolean;
 }) {
-  const { isSameUser } = useSameUser();
   const { isLoading, setIsLoading } = useIsLoading();
 
   const handleDeletePost = async () => {
@@ -32,7 +33,7 @@ export function MoreButtonPostLG({
       <DropdownMenuTrigger asChild>
         <Button className="p-0">{children}</Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56 rounded-xl flex flex-col gap-2 mr-40 border text-white border-zinc-800 bg-[#101010] bg-opacity-70 backdrop-blur-sm">
+      <DropdownMenuContent className="w-56 rounded-xl flex flex-col gap-2 border text-white border-zinc-800 bg-[#101010] bg-opacity-70 backdrop-blur-sm">
         <button className="hover:bg-zinc-800 text-start p-2 rounded-lg px-3 text-white text-base">
           Simpan
         </button>
@@ -56,12 +57,13 @@ export function MoreButtonMobile({
   children,
   id,
   isReposted,
+  isSameUser,
 }: {
   children: React.ReactNode;
   id: string;
   isReposted: boolean;
+  isSameUser: boolean;
 }) {
-  const { isSameUser } = useSameUser();
   const { isLoading, setIsLoading } = useIsLoading();
 
   const handleDeletePost = async () => {

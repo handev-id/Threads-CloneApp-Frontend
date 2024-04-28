@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ModalUserData } from "./post/userDataCard";
 import { AvatarImg } from "./Avatar";
-import { useGetLocalUser, usePostingTimeHistory } from "@/lib/hooks";
+import {
+  useCreateData,
+  useGetLocalUser,
+  usePostingTimeHistory,
+} from "@/lib/hooks";
 import { Muted } from "./ui/Typography";
 import { Button } from "./ui/button";
 import { SlOptions } from "react-icons/sl";
 import { MoreButtonReply } from "./post/MoreButtonReply";
+import { LoadingSmall } from "./ui/Loading";
 
 interface ListsProps {
   replyId?: string;
@@ -15,8 +20,9 @@ interface ListsProps {
   fullname?: string;
   data?: string;
   createdAt?: string;
-  followers?: number;
+  followers?: string[];
   isButtonFollow?: boolean;
+  isFollow?: boolean;
   isMorebutton?: boolean;
 }
 
@@ -29,14 +35,43 @@ const Lists: React.FC<ListsProps> = ({
   createdAt,
   fullname,
   followers,
+  isFollow,
   isButtonFollow,
   isMorebutton,
 }) => {
   const { userData } = useGetLocalUser();
+  const [btnFollow, setBtnFollow] = useState(isFollow ? "Following" : "Follow");
+  const [followersLength, setFollowersLength] = useState(followers.length);
+  const {
+    response,
+    isPending,
+    mutate: follow,
+    error,
+  } = useCreateData({
+    endpoint: `/follow/${userId}`,
+    data: {},
+  });
+
+  const followAction = () => {
+    follow();
+  };
+
+  useEffect(() => {
+    if (response?.success) {
+      if (btnFollow === "Follow") {
+        setBtnFollow("Following");
+        setFollowersLength(followersLength + 1);
+      } else {
+        setBtnFollow("Follow");
+        setFollowersLength(followersLength - 1);
+      }
+    }
+  }, [response]);
+  console.log(username, isFollow);
 
   return (
     <div className="py-4 pl-3 pr-3 border-b border-white/20 flex gap-2 relative">
-      <div className="flex items-center flex-col gap-2">
+      <div>
         <ModalUserData userId={userId}>
           <AvatarImg image={avatar} />
         </ModalUserData>
@@ -51,14 +86,19 @@ const Lists: React.FC<ListsProps> = ({
         </h3>
         {fullname && <Muted>{fullname}</Muted>}
         <div className="flex justify-between w-full items-center">
-          <p className="text-[14px] my-2">{data}</p>
+          {data && <p className="text-[14px] my-2">{data}</p>}
           {isButtonFollow && (
-            <Button className="bg-transpare   nt px-8 rounded-xl border border-white/40">
-              ikuti
+            <Button
+              onClick={() => followAction()}
+              className={`bg-transparent absolute top-5 right-3 w-[100px] rounded-xl border border-white/40 ${
+                btnFollow === "Following" && "opacity-50"
+              }`}
+            >
+              {isPending ? <LoadingSmall /> : btnFollow}
             </Button>
           )}
         </div>
-        {followers && <h3 className="mt-3">{followers} pengikut</h3>}
+        {followers && <h3 className="mt-3">{followersLength} followers</h3>}
       </div>
       {isMorebutton && (
         <MoreButtonReply isSameUser={userId === userData._id} id={replyId}>

@@ -20,6 +20,24 @@ export const useGetAllData = ({ endpoint }: { endpoint: string }) => {
   };
 };
 
+export const useMutateGetAllData = ({ endpoint }: { endpoint: string }) => {
+  const { data, isPending, status, error, mutate } = useMutation({
+    mutationKey: ["ALL_DATA"],
+    mutationFn: async () => {
+      const { data } = await axiosInstance.get(endpoint);
+      return data;
+    },
+  });
+
+  return {
+    data,
+    isPending,
+    status,
+    error,
+    mutate,
+  };
+};
+
 export const useSingleData = ({ endpoint }: { endpoint: string }) => {
   const { data, isLoading, status, error } = useQuery({
     queryKey: ["SINGLE_DATA"],
@@ -123,7 +141,7 @@ export const usePostingTimeHistory = ({ inputTime }: { inputTime: string }) => {
       }
     }
 
-    return "Just now"; // If the time difference is less than a second
+    return ""; // If the time difference is less than a second
   }
 
   const timeAgo = new Date(inputTime);
