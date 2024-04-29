@@ -23,3 +23,22 @@ export type PostType = {
     avatar?: string;
   };
 };
+
+export type ReplyType = {
+  _id: string;
+  userId?: {
+    _id?: string;
+    username?: string;
+    avatar?: string;
+  };
+  postId?: {
+    _id?: string;
+    username?: string;
+    avatar?: string;
+    image?: string;
+    caption?: string;
+    createdAt?: string;
+  };
+  reply?: string;
+  createdAt?: string;
+};

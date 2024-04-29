@@ -146,7 +146,6 @@ const ReplyInput = ({
       setIsLoading(true);
       return;
     }
-    console.log("ERROR: ", error);
   }, [isReply]);
 
   useEffect(() => {

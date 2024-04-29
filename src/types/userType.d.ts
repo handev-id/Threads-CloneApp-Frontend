@@ -7,6 +7,7 @@ export interface UserType {
   _id?: string;
   fullname?: string;
   username?: string;
+  bio?: string;
   email?: string;
   followers?: string[];
   following?: string[];

@@ -49,7 +49,6 @@ const Post = () => {
       setPost({ ...data?.result });
     }
   }, [data]);
-  console.log(post);
 
   return (
     <Layout>
@@ -77,16 +76,18 @@ const Post = () => {
           {replies ? (
             <div className="grid grid-cols-1">
               {replies?.result?.map((reply: RepliesType, index: number) => (
-                <Lists
-                  key={index}
-                  data={reply.reply}
-                  avatar={reply.userId.avatar}
-                  username={reply.userId.username}
-                  createdAt={reply.createdAt}
-                  userId={reply.userId._id}
-                  replyId={reply._id}
-                  isMorebutton
-                />
+                <div id={reply.userId.username}>
+                  <Lists
+                    key={index}
+                    data={reply.reply}
+                    avatar={reply.userId.avatar}
+                    username={reply.userId.username}
+                    createdAt={reply.createdAt}
+                    userId={reply.userId._id}
+                    replyId={reply._id}
+                    isMorebutton
+                  />
+                </div>
               ))}
             </div>
           ) : (

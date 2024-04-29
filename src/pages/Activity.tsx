@@ -29,8 +29,6 @@ const Activity = () => {
       mutate();
     }
   }, [userData]);
-  console.log(data);
-  console.log(error);
 
   return (
     <Layout>

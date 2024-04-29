@@ -15,8 +15,9 @@ import {
 } from "../ui/dialog";
 import React, { useEffect } from "react";
 import { Muted } from "../ui/Typography";
-import { Skeleton } from "../ui/skeleton";
 import { LoadingSmall } from "../ui/Loading";
+import UserSkeleton from "../UserSkeleton";
+import { useNavigate } from "react-router-dom";
 
 interface ModalProps {
   children?: React.ReactNode;
@@ -24,8 +25,12 @@ interface ModalProps {
 }
 
 export function ModalUserData({ children, userId }: ModalProps) {
-  const { data, mutate: getUserData } = useMutateSingleData({
-    endpoint: "/users/profile/" + userId,
+  const {
+    data,
+    mutate: getUserData,
+    error: erruser,
+  } = useMutateSingleData({
+    endpoint: "/users/user/" + userId,
   });
 
   const {
@@ -45,6 +50,7 @@ export function ModalUserData({ children, userId }: ModalProps) {
   }, [response]);
 
   const { userData } = useGetLocalUser();
+  const navigate = useNavigate();
 
   const isFollowing = () => {
     if (data?.result?.followers) {
@@ -62,7 +68,10 @@ export function ModalUserData({ children, userId }: ModalProps) {
       <DialogContent className="w-[95%] text-white bg-[#101010] border border-zinc-700 rounded-xl sm:max-w-md">
         <DialogHeader>
           {data ? (
-            <div className="flex justify-between">
+            <div
+              onClick={() => navigate(`/@${data?.result?.username}`)}
+              className="flex justify-between"
+            >
               <div>
                 <DialogTitle className="text-[24px]">
                   {data?.result?.fullname}
@@ -84,14 +93,7 @@ export function ModalUserData({ children, userId }: ModalProps) {
               </div>
             </div>
           ) : (
-            <div className="flex w-full space-x-4 mb-4">
-              <div className="space-y-2">
-                <Skeleton className="h-4 w-[100px]" />
-                <Skeleton className="h-4 w-[200px] sm:w-[300px]" />
-                <Skeleton className="h-4 w-[200px] sm:w-[200px]" />
-              </div>
-              <Skeleton className="h-14 w-14 rounded-full" />
-            </div>
+            <UserSkeleton />
           )}
         </DialogHeader>
         {userData?._id !== userId && (

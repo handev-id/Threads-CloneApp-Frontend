@@ -11,6 +11,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Post from "./pages/Post";
 import Search from "./pages/Search";
 import Activity from "./pages/Activity";
+import Profile from "./pages/Profile";
 function App() {
   const location =
     useLocation().pathname.slice(1).substring(0, 1).toUpperCase() +
@@ -40,6 +41,10 @@ function App() {
       <Route
         path="/activity"
         element={<ProtectedRoute children={<Activity />} />}
+      />
+      <Route
+        path="/:username"
+        element={<ProtectedRoute children={<Profile />} />}
       />
     </Routes>
   );

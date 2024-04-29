@@ -120,8 +120,6 @@ const PostInput = () => {
     data: { caption: caption, image: imageUrl },
   });
 
-  console.log(error);
-
   useEffect(() => {
     if (isPost) {
       if (caption === "") {

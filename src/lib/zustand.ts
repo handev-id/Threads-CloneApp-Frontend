@@ -25,6 +25,10 @@ type LoadingType = {
   isLoading: boolean;
   setIsLoading: (isLoading: boolean) => void;
 };
+type LoacationType = {
+  location: string;
+  setLocation: (location: string) => void;
+};
 
 type ImagePostType = {
   imageUrl: string | null;
@@ -64,4 +68,9 @@ export const useActionPost = create<action>((set) => ({
 export const useIsLoading = create<LoadingType>((set) => ({
   isLoading: false,
   setIsLoading: (isLoading) => set({ isLoading }),
+}));
+
+export const useLocationTabs = create<LoacationType>((set) => ({
+  location: "threads",
+  setLocation: (location) => set({ location }),
 }));

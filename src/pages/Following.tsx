@@ -7,8 +7,6 @@ import { PostType } from "@/types/data.type";
 
 const Following = () => {
   const { data, error } = useGetAllData({ endpoint: "/post-following/list" });
-  console.log(data);
-  console.log(error);
 
   return (
     <Layout>
