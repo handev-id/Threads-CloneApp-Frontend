@@ -74,3 +74,8 @@ export const useLocationTabs = create<LoacationType>((set) => ({
   location: "threads",
   setLocation: (location) => set({ location }),
 }));
+
+export const useEditProfile = create<modalPost>((set) => ({
+  isOpen: false,
+  setIsOpen: (isOpen) => set({ isOpen }),
+}));

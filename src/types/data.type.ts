@@ -19,9 +19,11 @@ export type PostType = {
   totalLikes?: number;
   index?: number;
   reposted?: {
+    _id: string;
     username?: string;
     avatar?: string;
   };
+  postId?: string;
 };
 
 export type ReplyType = {

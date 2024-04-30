@@ -1,6 +1,10 @@
 import Layout from "@/components/Layout";
 import { H2, P } from "@/components/ui/Typography";
-import { useMutateGetAllData, useMutateSingleData } from "@/lib/hooks";
+import {
+  useGetLocalUser,
+  useMutateGetAllData,
+  useMutateSingleData,
+} from "@/lib/hooks";
 import { UserType } from "@/types/userType";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
@@ -17,6 +21,7 @@ import Lists from "@/components/Lists";
 const Profile = () => {
   const { username } = useParams();
   const { location } = useLocationTabs();
+  const { userData } = useGetLocalUser();
   const [user, setUser] = useState<UserType | null>(null);
   const {
     mutate: getUser,
@@ -76,9 +81,6 @@ const Profile = () => {
                 <H2 color="text-white">{user?.fullname}</H2>
                 <p className="text-white">@{user?.username}</p>
                 <p className="text-white my-4">{user?.bio}</p>
-                <p className="text-white opacity-50">
-                  {user?.followers?.length} pengikut
-                </p>
               </div>
               <div className="w-[70px] rounded-full overflow-hidden h-[70px]">
                 <img
@@ -89,7 +91,10 @@ const Profile = () => {
               </div>
             </div>
             <div className="px-4 my-3">
-              <ButtonInProfile />
+              <ButtonInProfile
+                user={data}
+                isFollow={data?.result?.followers?.includes(userData?._id)}
+              />
             </div>
             <ProfileTabs />
           </>

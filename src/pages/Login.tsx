@@ -29,6 +29,7 @@ const Login = () => {
 
       localStorage.setItem("token", token);
       localStorage.setItem("threads_userdata", JSON.stringify({ ...rest }));
+      localStorage.setItem("isEdit", "true");
     }
 
     const isToken = localStorage.getItem("token");

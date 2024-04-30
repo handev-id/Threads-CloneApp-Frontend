@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { Logout } from "@/lib/hooks";
+import { toast } from "./ui/use-toast";
 
 const MoreButton = () => {
   const [showMenu, setShowMenu] = useState<boolean>(false);
@@ -31,11 +32,15 @@ const MoreMenu = () => {
     <div className="bg-transparent fixed top-0 z-40 right-0 w-full h-screen">
       <div className="bg-zinc-800 w-[200px] rounded-xl mr-3 mt-16 font-semibold ml-auto overflow-hidden">
         {Menu.map((item, idx) => (
-          <Link key={idx} to={item.link}>
-            <div className="text-white p-3 bg-zinc-900 hover:bg-zinc-950/80 border-b border-zinc-700">
-              {item.name}
-            </div>
-          </Link>
+          <div
+            key={idx}
+            onClick={() => {
+              toast({ title: "Coming Soon.." });
+            }}
+            className="text-white p-3 bg-zinc-900 hover:bg-zinc-950/80 border-b border-zinc-700"
+          >
+            {item.name}
+          </div>
         ))}
         <div
           onClick={() => Logout()}

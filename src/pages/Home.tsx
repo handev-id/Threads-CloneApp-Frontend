@@ -4,13 +4,23 @@ import { useGetAllData } from "@/lib/hooks";
 import { PostType } from "@/types/data.type";
 import { PostsSkeleton } from "@/components/PostSkeleton";
 import Layout from "@/components/Layout";
+import EditProfile from "@/components/EditProfile";
+import { useEffect, useState } from "react";
+import { useEditProfile } from "@/lib/zustand";
 
 const Home = () => {
+  const { setIsOpen } = useEditProfile();
   const { data, error } = useGetAllData({
     endpoint: "/post/list",
   });
 
-  console.log(error);
+  useEffect(() => {
+    const isEdit = localStorage.getItem("isEdit");
+    if (isEdit) {
+      setIsOpen(true);
+    }
+  }, []);
+  console.log(data);
 
   return (
     <Layout>
@@ -38,6 +48,7 @@ const Home = () => {
         ) : (
           <PostsSkeleton />
         )}
+        <EditProfile />
       </div>
     </Layout>
   );

@@ -13,14 +13,24 @@ import {
   RiUser3Fill,
   RiUser3Line,
 } from "react-icons/ri";
-import { useGetLocalUser } from "@/lib/hooks";
+import { useGetLocalUser, useMutateSingleData } from "@/lib/hooks";
 import { ModalPost } from "./ModalPost";
 import { useModalPost } from "@/lib/zustand";
+import { useEffect } from "react";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation().pathname;
   const { userData } = useGetLocalUser();
   const navigate = useNavigate();
+  const { data: user, mutate } = useMutateSingleData({
+    endpoint: `/users/user/${userData?._id}`,
+  });
+
+  useEffect(() => {
+    if (userData) {
+      mutate();
+    }
+  }, [userData]);
 
   const { setIsOpen } = useModalPost();
 
@@ -57,7 +67,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                     ? setIsOpen(true)
                     : navigate(
                         menu.link === "/profile"
-                          ? `/@${userData.username}`
+                          ? `/@${user?.result?.username}`
                           : menu.link
                       )
                 }

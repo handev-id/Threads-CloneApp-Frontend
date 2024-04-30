@@ -76,9 +76,8 @@ const Post = () => {
           {replies ? (
             <div className="grid grid-cols-1">
               {replies?.result?.map((reply: RepliesType, index: number) => (
-                <div id={reply.userId.username}>
+                <div key={index} id={reply.userId.username}>
                   <Lists
-                    key={index}
                     data={reply.reply}
                     avatar={reply.userId.avatar}
                     username={reply.userId.username}

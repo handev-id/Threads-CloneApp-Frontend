@@ -82,6 +82,21 @@ const PostCard: React.FC<PostType> = ({
     }
   };
 
+  function isSameUSer() {
+    if (reposted) {
+      if (reposted?._id === userData?._id) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+    if (recipientId?._id === userData?._id) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   return (
     <div className="py-4 pl-3 pr-3 border-b border-white/20 flex gap-2 relative">
       {isLoading && <Loading />}
@@ -172,7 +187,7 @@ const PostCard: React.FC<PostType> = ({
       </div>
       <div className="max-lg:hidden">
         <MoreButtonPostLG
-          isSameUser={recipientId?._id === userData?._id}
+          isSameUser={isSameUSer()}
           id={postId}
           isReposted={reposted ? true : false}
         >
@@ -185,7 +200,7 @@ const PostCard: React.FC<PostType> = ({
       </div>
       <div className="lg:hidden">
         <MoreButtonMobile
-          isSameUser={recipientId?._id === userData?._id}
+          isSameUser={isSameUSer()}
           id={postId}
           isReposted={reposted ? true : false}
         >

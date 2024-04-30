@@ -54,7 +54,7 @@ export function ModalUserData({ children, userId }: ModalProps) {
 
   const isFollowing = () => {
     if (data?.result?.followers) {
-      return data?.result?.followers?.includes(userData._id);
+      return data?.result?.followers?.includes(userData?._id);
     }
   };
 

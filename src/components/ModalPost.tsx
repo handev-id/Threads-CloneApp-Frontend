@@ -8,15 +8,19 @@ import {
   DialogDescription,
   DialogFooter,
   DialogHeader,
-  DialogTrigger,
 } from "@/components/ui/dialog";
-import { useCreateData, useGetLocalUser } from "@/lib/hooks";
+import {
+  useCreateData,
+  useGetLocalUser,
+  useMutateSingleData,
+} from "@/lib/hooks";
 import { AvatarImg } from "./Avatar";
 import { useActionPost, useImagePost, useModalPost } from "@/lib/zustand";
 import { RiImageAddFill } from "react-icons/ri";
 import { uploadImage } from "@/lib/apiService";
 import { useToast } from "./ui/use-toast";
 import { LoadingSmall } from "./ui/Loading";
+import { Skeleton } from "./ui/skeleton";
 
 export function ModalPost() {
   const { setSelectedFile, selectedFile } = useImagePost();
@@ -112,6 +116,20 @@ const PostInput = () => {
   const { isPost, setIsPost } = useActionPost();
   const { selectedFile, imageUrl, setImageUrl } = useImagePost();
   const {
+    mutate,
+    data: user,
+    error: errUser,
+  } = useMutateSingleData({
+    endpoint: `/users/user/${userData?._id}`,
+  });
+
+  useEffect(() => {
+    if (userData) {
+      mutate();
+    }
+  }, [userData]);
+
+  const {
     response,
     mutate: onCreatePost,
     error,
@@ -157,10 +175,20 @@ const PostInput = () => {
   return (
     <div className="flex gap-3 text-white w-full">
       <div className="flex items-center flex-col gap-2">
-        <AvatarImg image={userData.avatar} />
+        {!user ? (
+          <Skeleton className="h-10 w-10 rounded-full" />
+        ) : (
+          <AvatarImg image={user?.result?.avatar} />
+        )}
       </div>
       <div className="w-full flex flex-col">
-        <h3 className="font-semibold tracking-tight">{userData.username} </h3>
+        {!user ? (
+          <Skeleton className="h-4 w-[100px]" />
+        ) : (
+          <h3 className="font-semibold tracking-tight">
+            {user?.result?.username}
+          </h3>
+        )}
         <textarea
           value={caption}
           onChange={(e) => setCaption(e.target.value)}

@@ -103,6 +103,36 @@ export const useCreateData = ({
   };
 };
 
+export const useUpdateData = ({
+  endpoint,
+  data,
+}: {
+  endpoint: string;
+  data: any;
+}) => {
+  const {
+    mutate,
+    data: response,
+    isPending,
+    status,
+    error,
+  } = useMutation({
+    mutationKey: ["UPDATE_DATA"],
+    mutationFn: async () => {
+      const res = await axiosInstance.patch(endpoint, { ...data });
+      return res.data;
+    },
+  });
+
+  return {
+    mutate,
+    response,
+    isPending,
+    status,
+    error,
+  };
+};
+
 export const useGetLocalUser = () => {
   const [userData, setUserData] = useState<UserType>({});
 
