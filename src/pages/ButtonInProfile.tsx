@@ -14,6 +14,8 @@ const ButtonInProfile = ({
   isFollow: boolean;
 }) => {
   const { username } = useParams();
+  const { userData } = useGetLocalUser();
+  const [isMe, setIsMe] = useState(false);
   const { isOpen, setIsOpen } = useEditProfile();
   const [btnFollow, setBtnFollow] = useState(isFollow ? "Following" : "Follow");
   const [followersLength, setFollowersLength] = useState(
@@ -42,7 +44,13 @@ const ButtonInProfile = ({
     }
   }, [response]);
 
-  if (username === `@${user?.result?.username}`) {
+  useEffect(() => {
+    if (user?.result?._id === `${userData?._id}`) {
+      setIsMe(true);
+    }
+  }, [userData]);
+
+  if (isMe) {
     return (
       <div>
         <p className="text-white opacity-50 mb-5">{followersLength} pengikut</p>
