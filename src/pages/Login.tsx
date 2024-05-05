@@ -33,7 +33,7 @@ const Login = () => {
       localStorage.setItem("isEdit", "true");
     }
 
-    const isToken = localStorage.getItem("token");
+    const isToken = Cookies.get("token");
     const isUserData = localStorage.getItem("threads_userdata");
     if (isToken && isUserData) {
       window.location.href = "/";
