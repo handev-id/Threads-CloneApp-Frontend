@@ -8,6 +8,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const Login = () => {
   const { handleSubmit, register } = useForm();
@@ -27,8 +28,8 @@ const Login = () => {
     if (status === "success") {
       const { token, ...rest } = data?.result;
 
-      localStorage.setItem("token", token);
       localStorage.setItem("threads_userdata", JSON.stringify({ ...rest }));
+      Cookies.set("token", token);
       localStorage.setItem("isEdit", "true");
     }
 
