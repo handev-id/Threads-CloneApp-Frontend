@@ -29,12 +29,13 @@ const Login = () => {
       const { token, ...rest } = data?.result;
 
       localStorage.setItem("threads_userdata", JSON.stringify({ ...rest }));
-      Cookies.set("token", token);
+      localStorage.setItem("token", token);
       localStorage.setItem("isEdit", "true");
     }
 
     const isUserData = localStorage.getItem("threads_userdata");
-    if (isUserData) {
+    const token = localStorage.getItem("token");
+    if (isUserData && token) {
       window.location.href = "/";
     }
   }, [status]);

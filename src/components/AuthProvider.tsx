@@ -18,10 +18,11 @@ const AuthContext = createContext<Auth>({
 
 function getLocaluser() {
   const auth = localStorage.getItem("threads_userdata");
-  if (auth) {
+  const token = localStorage.getItem("token");
+  if (auth && token) {
     return JSON.parse(auth);
   }
-  return null;
+  return (window.location.href = "/login");
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
