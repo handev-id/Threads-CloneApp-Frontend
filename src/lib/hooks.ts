@@ -150,7 +150,7 @@ export const useGetLocalUser = () => {
 export const Logout = () => {
   localStorage.removeItem("token");
   localStorage.removeItem("threads_userdata");
-  window.location.reload();
+  window.location.href = "/login";
 };
 
 export const usePostingTimeHistory = ({ inputTime }: { inputTime: string }) => {

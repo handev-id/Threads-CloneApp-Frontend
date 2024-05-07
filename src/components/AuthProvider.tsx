@@ -22,7 +22,7 @@ function getLocaluser() {
   if (auth && token) {
     return JSON.parse(auth);
   }
-  return (window.location.href = "/login");
+  // return (window.location.href = "/login");
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
