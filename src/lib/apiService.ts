@@ -1,7 +1,7 @@
 import axios from "axios";
 import { axiosInstance } from "./axiosInstance";
 import { useIsLoading } from "./zustand";
-const baseUrl = import.meta.env.VITE_BACKEND_URL;
+const baseUrl = "https://api.handev.my.id";
 
 export const likePost = async (postId: string, recipientId: string) => {
   try {
