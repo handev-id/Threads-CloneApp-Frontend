@@ -7,11 +7,10 @@ import { axiosInstance } from "@/lib/axiosInstance";
 import { useMutation } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const { handleSubmit, register } = useForm();
-  const navigate = useNavigate();
 
   const onLogin = (userData: any) => {
     mutate(userData);
@@ -31,7 +30,12 @@ const Login = () => {
       localStorage.setItem("threads_userdata", JSON.stringify({ ...rest }));
       localStorage.setItem("token", token);
       localStorage.setItem("isEdit", "true");
-      navigate("/");
+    }
+
+    const isUserData = localStorage.getItem("threads_userdata");
+    const token = localStorage.getItem("token");
+    if (isUserData && token) {
+      window.location.href = "/";
     }
   }, [status]);
 
