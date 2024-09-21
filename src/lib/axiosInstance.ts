@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = import.meta.env.VITE_BACKEND_URL;
+const baseUrl = "api.handev.my.id";
 
 export const axiosInstance = axios.create({
   baseURL: baseUrl,
