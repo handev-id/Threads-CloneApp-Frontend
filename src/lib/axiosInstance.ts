@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "api.handev.my.id";
+const baseUrl = "https://api.handev.my.id";
 
 export const axiosInstance = axios.create({
   baseURL: baseUrl,
